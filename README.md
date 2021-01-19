@@ -7,4 +7,4 @@ Two more things are planned for a near future
 1. Implementing search option. Only the layout is done at the moment.
 2. Adding a Record function
 
-<img src="https://gyazo.com/d331e5fc645d1884835161cc43773b2a"/>
+<img src="https://i.gyazo.com/d331e5fc645d1884835161cc43773b2a.png"/>
