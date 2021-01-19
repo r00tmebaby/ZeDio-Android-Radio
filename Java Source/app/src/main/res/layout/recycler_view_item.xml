@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/radio_view_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:background="#E2DCF1"
+    android:backgroundTint="#E2DCF1"
+    android:backgroundTintMode="add"
+    android:divider="@android:drawable/bottom_bar"
+    android:fadeScrollbars="true"
+    android:focusable="auto"
+    android:focusableInTouchMode="true"
+    android:orientation="horizontal"
+    android:textAlignment="gravity"
+    android:textDirection="locale"
+    android:touchscreenBlocksFocus="false"
+    android:transitionGroup="false"
+    app:cardBackgroundColor="#444">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:minHeight="150dp">
+
+    <ImageView
+        android:id="@+id/radio_logo"
+        android:layout_width="123dp"
+        android:layout_height="110dp"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:background="#FFFFFF"
+        android:contextClickable="false"
+        android:cropToPadding="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radio_name"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/radio_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/radio_logo"
+        app:layout_constraintTop_toBottomOf="@+id/radio_name"
+        tools:text="@tools:sample/lorem[2]" />
+
+    <TextView
+        android:id="@+id/radio_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/purple_700"
+        android:backgroundTint="#C639369C"
+        android:gravity="center_horizontal"
+        android:shadowColor="#1B1919"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#1C316A"
+        android:textColorHint="#711A1A"
+        android:textColorLink="#0091EA"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem[3]" />
+
+    <TextView
+        android:id="@+id/radio_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toEndOf="@+id/radio_logo"
+        app:layout_constraintTop_toBottomOf="@+id/radio_genre"
+        tools:text="BG" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+
+
+
