@@ -23,8 +23,8 @@ import java.util.ArrayList;
 public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>{
 
     private static final String TAG = "RadioViewAdapter";
-    private ArrayList<Radio> radioList;
-    private Context mContext;
+    private final ArrayList<Radio> radioList;
+    private final Context mContext;
 
     public RadioAdapter(Context context, ArrayList<Radio> radioList) {
         this.radioList = radioList;
@@ -67,7 +67,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
         return this.radioList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView radioLogo;
         TextView radioName;
