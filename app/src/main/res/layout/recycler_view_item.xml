@@ -22,13 +22,13 @@
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:minHeight="150dp">
 
     <ImageView
         android:id="@+id/radio_logo"
-        android:layout_width="123dp"
-        android:layout_height="110dp"
+        android:layout_width="114dp"
+        android:layout_height="108dp"
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:adjustViewBounds="true"

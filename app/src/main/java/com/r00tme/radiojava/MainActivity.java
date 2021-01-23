@@ -52,13 +52,14 @@ public class MainActivity extends AppCompatActivity {
         simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                search = query;
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 search = newText;
-                return true;
+                return false;
             }
         });
 

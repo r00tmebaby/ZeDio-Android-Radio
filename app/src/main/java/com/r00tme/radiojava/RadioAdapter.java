@@ -67,6 +67,11 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
     }
 
 
+    public void updateData(ArrayList<Radio> viewModels) {
+        radioList.clear();
+        radioList.addAll(viewModels);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {

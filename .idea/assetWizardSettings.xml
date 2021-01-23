@@ -67,7 +67,9 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Program Files\Android\Android Studio\plugins\android\resources\images\asset_studio\ic_launcher_foreground.xml" />
+                                                <entry key="imagePath" value="F:\141725852_10218767461757300_533434384407786331_n.jpg" />
+                                                <entry key="scalingPercent" value="147" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -80,7 +82,6 @@
                                               <map>
                                                 <entry key="color" value="ffffff" />
                                                 <entry key="imagePath" value="C:\Users\r00tme\AppData\Local\Temp\ic_android_black_24dp.xml" />
-                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -92,8 +93,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="F:\broadcast_radio_icon_155718.png" />
-                                                <entry key="scalingPercent" value="94" />
+                                                <entry key="imagePath" value="F:\broadcast_radio_icon_155718 (1).png" />
+                                                <entry key="scalingPercent" value="87" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -105,7 +106,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="000000" />
+                                                <entry key="color" value="ffffff" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -117,7 +118,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="000000" />
+                                                <entry key="color" value="ffffff" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -128,9 +129,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="generateLegacyIcon" value="false" />
-                                      <entry key="generateRoundIcon" value="false" />
-                                      <entry key="legacyIconShape" value="VRECT" />
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="2f87fe" />
                                     </map>
                                   </option>
                                 </PersistentState>
