@@ -42,41 +42,40 @@
 24-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:15:9-54
 25        android:supportsRtl="true"
 25-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:16:9-35
-26        android:testOnly="true"
-27        android:theme="@style/Theme.RadioJava"
-27-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:18:9-47
-28        android:usesCleartextTraffic="true" >
-28-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:17:9-44
-29        <activity android:name="com.r00tme.radiojava.MainActivity" >
-29-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:20:9-26:20
-29-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:20:19-47
-30            <intent-filter>
-30-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:21:13-25:29
-31                <action android:name="android.intent.action.MAIN" />
-31-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:22:17-69
-31-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:22:25-66
-32
-33                <category android:name="android.intent.category.LAUNCHER" />
-33-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:24:17-77
-33-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:24:27-74
-34            </intent-filter>
-35        </activity>
-36
-37        <provider
-37-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
-38            android:name="com.squareup.picasso.PicassoProvider"
-38-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
-39            android:authorities="com.r00tme.radiojava.com.squareup.picasso"
-39-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
-40            android:exported="false" />
-40-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
-41
-42        <meta-data
-42-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:11:9-13:43
-43            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-43-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:12:13-84
-44            android:value="GlideModule" />
-44-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:13:13-40
-45    </application>
-46
-47</manifest>
+26        android:theme="@style/Theme.RadioJava"
+26-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:18:9-47
+27        android:usesCleartextTraffic="true" >
+27-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:17:9-44
+28        <activity android:name="com.r00tme.radiojava.MainActivity" >
+28-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:20:9-26:20
+28-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:20:19-47
+29            <intent-filter>
+29-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:21:13-25:29
+30                <action android:name="android.intent.action.MAIN" />
+30-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:22:17-69
+30-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:22:25-66
+31
+32                <category android:name="android.intent.category.LAUNCHER" />
+32-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:24:17-77
+32-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:24:27-74
+33            </intent-filter>
+34        </activity>
+35
+36        <provider
+36-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+37            android:name="com.squareup.picasso.PicassoProvider"
+37-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+38            android:authorities="com.r00tme.radiojava.com.squareup.picasso"
+38-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+39            android:exported="false" />
+39-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+40
+41        <meta-data
+41-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:11:9-13:43
+42            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+42-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:12:13-84
+43            android:value="GlideModule" />
+43-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:13:13-40
+44    </application>
+45
+46</manifest>
