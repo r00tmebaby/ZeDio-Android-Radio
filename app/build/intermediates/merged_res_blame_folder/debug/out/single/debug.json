@@ -8,16 +8,16 @@
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\drawable\\placeholder.xml"
     },
     {
-        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_recycler_view_item.xml.flat",
-        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\layout\\recycler_view_item.xml"
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_recycler_view_item.xml.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\layout\\recycler_view_item.xml"
     },
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
