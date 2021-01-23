@@ -62,6 +62,17 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="backgroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="imagePath" value="C:\Program Files\Android\Android Studio\plugins\android\resources\images\asset_studio\ic_launcher_foreground.xml" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="foregroundClipArt">
                                         <value>
                                           <PersistentState>
@@ -69,6 +80,7 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\r00tme\AppData\Local\Temp\ic_android_black_24dp.xml" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -80,7 +92,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="F:\radio_22703.png" />
+                                                <entry key="imagePath" value="F:\broadcast_radio_icon_155718.png" />
                                                 <entry key="scalingPercent" value="89" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -110,6 +122,11 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundColor" value="46ff9b" />
                                     </map>
                                   </option>
                                 </PersistentState>
