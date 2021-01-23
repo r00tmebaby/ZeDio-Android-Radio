@@ -52,8 +52,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/radio_view_layout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="309dp"
+        android:layout_height="664dp"
         android:layout_marginTop="110dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

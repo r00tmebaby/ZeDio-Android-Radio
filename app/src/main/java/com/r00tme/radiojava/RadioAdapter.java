@@ -62,6 +62,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
             }
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(MediaPlayer::start);
+            mediaPlayer.setLooping(true);
         });
     }
 

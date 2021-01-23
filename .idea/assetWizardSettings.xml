@@ -78,7 +78,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="000000" />
+                                                <entry key="color" value="ffffff" />
                                                 <entry key="imagePath" value="C:\Users\r00tme\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -93,7 +93,7 @@
                                               <map>
                                                 <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="F:\broadcast_radio_icon_155718.png" />
-                                                <entry key="scalingPercent" value="89" />
+                                                <entry key="scalingPercent" value="94" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -106,6 +106,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -117,6 +118,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -126,7 +128,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="46ff9b" />
+                                      <entry key="generateLegacyIcon" value="false" />
+                                      <entry key="generateRoundIcon" value="false" />
+                                      <entry key="legacyIconShape" value="VRECT" />
                                     </map>
                                   </option>
                                 </PersistentState>
