@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 // Set program exit activity  *************************************************
-
-
         ImageButton exitButton = findViewById(R.id.exit_button);
         exitButton.setOnClickListener(v -> {
             finish();
@@ -41,10 +39,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
 
 
-
 //** Set filter dropdown activity **********************************************
-
-
         Spinner spinner = findViewById(R.id.filter_by);
         ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(
                 this, R.array.filter_bys, android.R.layout.simple_spinner_item
@@ -55,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 //** Set radio list activity / Create RecycleView  *****************************
-
-
         RecyclerView recyclerView = findViewById(R.id.radio_view_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -71,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 //** Set search activity  ******************************************************
-
-
         SearchView simpleSearchView = findViewById(R.id.search_radio);
         simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -103,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
  * @return Array of type Radio
  * @throws IOException if the URL is unreachable or file can not be read
  */
-
     private ArrayList<Radio> fetchAllRadios() throws IOException {
         ArrayList<Radio> radioList = new ArrayList<>();
         //TODO Add an additional radio list fetch options/methods. Possibly TuneIn XML API
