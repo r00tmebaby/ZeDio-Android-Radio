@@ -7,4 +7,4 @@ I wanted to learn a bit about native android apps and this is what came to my he
 <b>In proggress</b>:
         - Record fuctionality
 
-<img src="https://i.gyazo.com/a2ea05702413b5bd98018005c67612ca.png"/>
+<img src="https://i.gyazo.com/182945ea9be8deeb1d52bb08370c1d11.png"/>
