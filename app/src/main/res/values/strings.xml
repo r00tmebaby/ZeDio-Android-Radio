@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Radio Java</string>
+    <string name="app_name">ZeDio</string>
+    
+    <string-array name="filter_bys">
+        <item>Name</item>
+        <item>Genre</item>
+        <item>Country</item>
+    </string-array>
 </resources>

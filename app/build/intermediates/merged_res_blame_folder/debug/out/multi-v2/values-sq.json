@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sq\\values-sq.xml",
+            "outputFile": "D:\\Radio-Android-master\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sq\\values-sq.xml",
             "map": [
                 {
                     "source": "C:\\Users\\r00tme\\.gradle\\caches\\transforms-2\\files-2.1\\8dbd859d1cd89239b42e7382b4fc40d7\\core-1.3.1\\res\\values-sq\\values-sq.xml",

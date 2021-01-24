@@ -45,6 +45,7 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array filter_bys
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -1744,6 +1745,7 @@ id fill
 id fill_horizontal
 id fill_vertical
 id filled
+id filter_by
 id fitToContents
 id fixed
 id flip
@@ -1782,7 +1784,7 @@ id line1
 id line3
 id linear
 id linearLayout
-id linearLayout3
+id linearLayout2
 id listMode
 id list_item
 id masked

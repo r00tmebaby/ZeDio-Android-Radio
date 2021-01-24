@@ -1,7 +1,6 @@
 package com.r00tme.radiojava;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
@@ -9,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,15 +24,19 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>{
+public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder> implements Filterable {
     private static final MediaPlayer mediaPlayer = new MediaPlayer();
     private static final String TAG = "RadioViewAdapter";
-    private final ArrayList<Radio> radioList;
+    private final ArrayList<Radio> radioListFull;
+    private  ArrayList<Radio> radioList;
     private final Context mContext;
 
-    public RadioAdapter(Context context, ArrayList<Radio> radioList) {
+    public RadioAdapter(ArrayList<Radio> radioList, Context context) {
         this.radioList = radioList;
+        radioListFull = new ArrayList<>(radioList);
         this.mContext = context;
     }
 
@@ -77,6 +82,40 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
     public int getItemCount() {
         return this.radioList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return radioFilter;
+    }
+
+    private Filter radioFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Radio> filteredRadioList = new ArrayList<>();
+
+            if(constraint == null || constraint.length() == 0){
+                filteredRadioList.addAll(radioListFull);
+            }else{
+                String pattern = constraint.toString().toLowerCase().trim();
+                for (Radio item: radioListFull) {
+                    // Check if the radio name is found
+                    if(item.getRadioName().toLowerCase().contains(pattern)){
+                        filteredRadioList.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredRadioList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            radioList.clear();
+            radioList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
