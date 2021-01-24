@@ -4,12 +4,12 @@
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
-    },
-    {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_background.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
     },
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_background.png.flat",
@@ -98,6 +98,10 @@
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_foreground.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.png"
+    },
+    {
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\xml_clock_wallpaper.xml.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\xml\\clock_wallpaper.xml"
     },
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",

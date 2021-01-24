@@ -3,30 +3,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    private RadioAdapter radioAdapter = null;
-    private String filteredBy = "Name";
+
+    private RadioAdapter radioAdapter;
+    private String filteredBy;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +31,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
 
-        // Set program exit activity
-        ImageButton exit = findViewById(R.id.exit_button);
-        exit.setOnClickListener(v -> {
+// Set program exit activity  *************************************************
+        ImageButton exitButton = findViewById(R.id.exit_button);
+        exitButton.setOnClickListener(v -> {
             finish();
             System.exit(0);
         });
 
-        //** Set filter dropdown activity
+
+//** Set filter dropdown activity **********************************************
         Spinner spinner = findViewById(R.id.filter_by);
         ArrayAdapter<CharSequence> filterAdapter = ArrayAdapter.createFromResource(
                 this, R.array.filter_bys, android.R.layout.simple_spinner_item
@@ -50,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setAdapter(filterAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        //** Set radio list activity
+
+//** Set radio list activity / Create RecycleView  *****************************
         RecyclerView recyclerView = findViewById(R.id.radio_view_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -62,7 +61,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         recyclerView.setAdapter(radioAdapter);
         RadioAdapter finalRadioAdapter = radioAdapter;
 
-        //** Set search activity
+
+
+//** Set search activity  ******************************************************
         SearchView simpleSearchView = findViewById(R.id.search_radio);
         simpleSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -72,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public boolean onQueryTextChange(String newText) {
+
+                //TODO improving the construction of the search data. Possibly not regex to be used.
+
                 finalRadioAdapter.getFilter().filter(filteredBy + "#" + newText);
                 return false;
             }
@@ -79,9 +83,21 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
-    private ArrayList<Radio> fetchAllRadios() throws IOException {
 
+/**
+ *  Fetches the predefined text file from predefined URL
+ *
+ *  The file data structure -> Name, Genre, Country, StreamingUrl, LogoImage
+ *  The file is read line by line and each line is slitted and added to the new Radio model
+ *  Badly formatted data wont be added. The method expects exactly 5 elements
+ *
+ * @return Array of type Radio
+ * @throws IOException if the URL is unreachable or file can not be read
+ */
+    private ArrayList<Radio> fetchAllRadios() throws IOException {
         ArrayList<Radio> radioList = new ArrayList<>();
+        //TODO Add an additional radio list fetch options/methods. Possibly TuneIn XML API
+
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitNetwork().build());
         try {
@@ -104,16 +120,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         return radioList;
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        SearchView simpleSearchView = findViewById(R.id.search_radio);
         filteredBy = parent.getItemAtPosition(position).toString();
-        SearchView seach = findViewById(R.id.search_radio);
-                seach.setQuery("", false);
-                seach.clearFocus();
+        simpleSearchView.setQuery("", false);
+        simpleSearchView.clearFocus();
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) { }
 }

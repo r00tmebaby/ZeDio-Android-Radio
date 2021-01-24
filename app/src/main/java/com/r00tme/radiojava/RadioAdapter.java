@@ -4,6 +4,8 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 
+import android.net.wifi.WifiManager;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder> implements Filterable {
-    private static final MediaPlayer mediaPlayer = new MediaPlayer();
+
     private static final String TAG = "RadioViewAdapter";
     private final ArrayList<Radio> radioListFull;
     private final ArrayList<Radio> radioList;
@@ -57,25 +59,11 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
         holder.radioCountry.setText(currentRadio.getRadioCountry());
         holder.radioViewLayout.setOnClickListener(v -> {
             Toast.makeText(mContext, "Loading: " + currentRadio.getRadioName(), Toast.LENGTH_LONG).show();
-            Log.d(TAG, String.valueOf(mediaPlayer.isPlaying()));
-            try {
-                mediaPlayer.reset();
-                mediaPlayer.setDataSource(String.valueOf(Uri.parse(currentRadio.getRadioUrl())));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(MediaPlayer::start);
-            mediaPlayer.setLooping(true);
+            PlayerAction player = new PlayerAction(mContext, currentRadio);
+            player.playMedia();
         });
     }
 
-
-    public void updateData(ArrayList<Radio> viewModels) {
-        radioList.clear();
-        radioList.addAll(viewModels);
-        notifyDataSetChanged();
-    }
 
     @Override
     public int getItemCount() {
