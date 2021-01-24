@@ -107,6 +107,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         filteredBy = parent.getItemAtPosition(position).toString();
+        SearchView seach = findViewById(R.id.search_radio);
+                seach.setQuery("", false);
+                seach.clearFocus();
     }
 
     @Override

@@ -31,7 +31,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
     private static final MediaPlayer mediaPlayer = new MediaPlayer();
     private static final String TAG = "RadioViewAdapter";
     private final ArrayList<Radio> radioListFull;
-    private  ArrayList<Radio> radioList;
+    private final ArrayList<Radio> radioList;
     private final Context mContext;
 
     public RadioAdapter(ArrayList<Radio> radioList, Context context) {
