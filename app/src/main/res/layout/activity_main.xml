@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="411dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#3F51B5"
         android:backgroundTint="#3F51B5"
@@ -19,13 +19,15 @@
         android:paddingTop="5dp"
         android:paddingRight="5dp"
         android:paddingBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
         <Spinner
             android:id="@+id/filter_by"
-            android:layout_width="88dp"
-            android:layout_height="47dp"
+            android:layout_width="106dp"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
@@ -35,7 +37,7 @@
 
         <SearchView
             android:id="@+id/search_radio"
-            android:layout_width="290dp"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:alwaysDrawnWithCache="true"
@@ -48,14 +50,26 @@
             android:focusable="auto"
             android:iconifiedByDefault="false"
             android:inputType="textAutoComplete"
-            android:queryHint="Search Here" />
+            android:queryHint="Search Here">
+
+        </SearchView>
+
+        <ImageButton
+            android:id="@+id/exit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="#E91E63"
+            android:backgroundTintMode="screen"
+            android:hapticFeedbackEnabled="true"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="0dp"
-        android:layout_height="620dp"
+        android:layout_width="398dp"
+        android:layout_height="1760dp"
         android:background="#2196F3"
         android:orientation="horizontal"
         android:padding="10dp"
@@ -77,18 +91,5 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/exit_button"
-        android:layout_width="391dp"
-        android:layout_height="35dp"
-        android:background="#3F51B5"
-        android:backgroundTintMode="screen"
-        android:hapticFeedbackEnabled="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
