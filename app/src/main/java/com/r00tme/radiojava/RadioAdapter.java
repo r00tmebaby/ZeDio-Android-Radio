@@ -88,7 +88,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
         return radioFilter;
     }
 
-    private Filter radioFilter = new Filter() {
+    private final Filter radioFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Radio> filteredRadioList = new ArrayList<>();
