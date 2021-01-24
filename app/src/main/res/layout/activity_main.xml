@@ -26,8 +26,8 @@
 
         <Spinner
             android:id="@+id/filter_by"
-            android:layout_width="106dp"
-            android:layout_height="match_parent"
+            android:layout_width="92dp"
+            android:layout_height="48dp"
             android:layout_margin="5dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
@@ -37,7 +37,7 @@
 
         <SearchView
             android:id="@+id/search_radio"
-            android:layout_width="215dp"
+            android:layout_width="245dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:alwaysDrawnWithCache="true"
@@ -68,8 +68,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="398dp"
-        android:layout_height="1760dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="#2196F3"
         android:orientation="horizontal"
         android:padding="10dp"
