@@ -100,10 +100,6 @@
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.png"
     },
     {
-        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\xml_clock_wallpaper.xml.flat",
-        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\xml\\clock_wallpaper.xml"
-    },
-    {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
