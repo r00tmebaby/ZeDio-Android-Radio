@@ -92,14 +92,20 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Radio> filteredRadioList = new ArrayList<>();
-
-            if(constraint == null || constraint.length() == 0){
+            String[] getData = constraint.toString().split("#");
+            if(getData.length == 1){
                 filteredRadioList.addAll(radioListFull);
             }else{
-                String pattern = constraint.toString().toLowerCase().trim();
+                String filterBy = getData[0];
+                String searchSequence = getData[1].toLowerCase().trim();
                 for (Radio item: radioListFull) {
-                    // Check if the radio name is found
-                    if(item.getRadioName().toLowerCase().contains(pattern)){
+                    if(filterBy.contains("Name") && item.getRadioName().toLowerCase().contains(searchSequence)){
+                        filteredRadioList.add(item);
+                    }
+                    else if(filterBy.contains("Genre") && item.getRadioGenre().toLowerCase().contains(searchSequence)){
+                        filteredRadioList.add(item);
+                    }
+                    else if(filterBy.contains("Country") && item.getRadioCountry().toLowerCase().contains(searchSequence)){
                         filteredRadioList.add(item);
                     }
                 }

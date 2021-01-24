@@ -18,19 +18,20 @@ import android.widget.SpinnerAdapter;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private RadioAdapter radioAdapter = null;
-    private static final String[] filterBy = {"Name", "Genre", "Country"};
+    private String filteredBy = "Name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         // Set program exit activity
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                finalRadioAdapter.getFilter().filter(newText);
+                finalRadioAdapter.getFilter().filter(filteredBy + "#" + newText);
                 return false;
             }
         });
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String filterBy = parent.getItemAtPosition(position).toString();
+        filteredBy = parent.getItemAtPosition(position).toString();
     }
 
     @Override
