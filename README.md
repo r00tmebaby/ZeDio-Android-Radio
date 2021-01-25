@@ -14,6 +14,11 @@ It has really simple but frendly user interface and uses the build in media play
                 <td>Version 0.2</td>
         </tr>
         <tr>
+                <td>w</td>
+                <td>e</td>
+                <td>r</td>
+        </tr>
+        <tr>
                 <td><img src="https://i.gyazo.com/182945ea9be8deeb1d52bb08370c1d11.png"/></td>
                 <td><img src="https://i.gyazo.com/06be95fe455a8b1e868b3cefcf6ca258.png"/></td>     
         </tr>
