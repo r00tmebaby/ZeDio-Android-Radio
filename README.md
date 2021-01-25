@@ -8,10 +8,10 @@ It has really simple but frendly user interface and uses the build in media play
         - Record fuctionality
         
 
-<table>
+<table style="border:0 !important">
         <tr>
                 <td>Version 0.1</td>
-                <tdVersion 0.2></td>
+                <td>Version 0.2</td>
         </tr>
         <tr>
                 <td><img src="https://i.gyazo.com/182945ea9be8deeb1d52bb08370c1d11.png"/></td>
