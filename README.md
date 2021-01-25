@@ -14,9 +14,19 @@ It has really simple but frendly user interface and uses the build in media play
                 <td>Version 0.2</td>
         </tr>
         <tr>
-                <td>w</td>
-                <td>e</td>
-                <td>r</td>
+                <td>
+                        <ul>
+                                <li> Added search options </li>
+                        </ul>
+                </td>
+                <td>
+                        <ul>
+                                <li> Changed layout </li>
+                                <li> On play showing a toolbar with radio name </li>
+                                <li> Displaying song title and artist if metadata exists</li>
+                                <li> Added stop button (functionality may change prior of doing the record function, not final) </li>
+                        </ul>
+                </td>
         </tr>
         <tr>
                 <td><img src="https://i.gyazo.com/182945ea9be8deeb1d52bb08370c1d11.png"/></td>
