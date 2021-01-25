@@ -12,6 +12,10 @@
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_stop_24.xml.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\drawable\\ic_baseline_stop_24.xml"
+    },
+    {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_background.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_background.png"
     },
@@ -22,6 +26,10 @@
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_baseline_fiber_manual_record_24.xml.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\drawable\\ic_baseline_fiber_manual_record_24.xml"
     },
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
@@ -96,12 +104,20 @@
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v24\\ic_launcher_foreground.xml"
     },
     {
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\font_alex_brush.xml.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\font\\alex_brush.xml"
+    },
+    {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_foreground.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\font_aclonica.xml.flat",
+        "source": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\src\\main\\res\\font\\aclonica.xml"
     },
     {
         "merged": "C:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",

@@ -45,7 +45,11 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array com_google_android_gms_fonts_certs
+array com_google_android_gms_fonts_certs_dev
+array com_google_android_gms_fonts_certs_prod
 array filter_bys
+array preloaded_fonts
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -1549,6 +1553,8 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_baseline_fiber_manual_record_24
+drawable ic_baseline_stop_24
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_mtrl_checked_circle
@@ -1588,6 +1594,8 @@ drawable placeholder
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+font aclonica
+font alex_brush
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -1832,6 +1840,7 @@ id off
 id on
 id outline
 id packed
+id pad
 id parallax
 id parent
 id parentPanel
@@ -1843,6 +1852,8 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id playing_name
+id playing_radio_layout
 id position
 id postLayout
 id progress_circular
@@ -1850,6 +1861,7 @@ id progress_horizontal
 id radio
 id radio_country
 id radio_genre
+id radio_info_data
 id radio_logo
 id radio_name
 id radio_view_layout
@@ -1909,9 +1921,11 @@ id standard
 id start
 id startHorizontal
 id startVertical
+id start_recording
 id staticLayout
 id staticPostLayout
 id stop
+id stop_playing
 id stretch
 id submenuarrow
 id submit_area
@@ -2191,6 +2205,7 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string search_menu_title
 string status_bar_notification_info_overflow
+string test
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style AndroidThemeColorAccentYellow

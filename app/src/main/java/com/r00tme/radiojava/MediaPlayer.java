@@ -1,29 +1,39 @@
 package com.r00tme.radiojava;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.Build;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 class PlayerAction  {
+
 
     private static MediaPlayer mediaPlayer = new MediaPlayer();
 
     private final Context context;
-    private final Radio radio;
-    private static final String LOG_TAG = "AudioRecordTest";
+    private final Radio currentRadio;
+    private static Radio previousRadio = null;
 
     public PlayerAction(Context context, Radio radio) {
+
         this.context  = context;
-        this.radio = radio;
+        this.currentRadio = radio;
+
+        if(previousRadio == null){
+            previousRadio = radio;
+        }
+
         initPlayer();
     }
 
@@ -33,42 +43,14 @@ class PlayerAction  {
 
         try {
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(String.valueOf(Uri.parse(radio.getRadioUrl())));
+            mediaPlayer.setDataSource(String.valueOf(Uri.parse(currentRadio.getRadioUrl())));
         } catch (
                 IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void recordRadio(){
-
-        PackageManager androidManager = context.getPackageManager();
-        if (androidManager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
-
-            String fileName = Environment.getExternalStorageDirectory().getAbsolutePath();
-            fileName += "/".concat(radio.getRadioName()).concat(getDate())+".mp3";
-
-            MediaRecorder mediaRecorder = new MediaRecorder();
-
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            mediaRecorder.setOutputFile(fileName);
-            try {
-                mediaRecorder.prepare();
-                mediaRecorder.start();
-            } catch (IOException e) {
-                Log.e(LOG_TAG, "prepare() failed");
-            }
-        } else { // no mic on device
-            Toast.makeText(context, "This device doesn't have a mic!", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    /** Method takes format date string as an argument and returns the formatted date
-     *
-     */
-
+    //TODO For record functionality
     private String getDate(){
         @SuppressLint("SimpleDateFormat") SimpleDateFormat  formatter =
                 new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
@@ -81,13 +63,20 @@ class PlayerAction  {
             mediaPlayer.stop();
             mediaPlayer.release();
             mediaPlayer = null;
+            mediaPlayer = new MediaPlayer();
         }
+    }
+
+    //TODO For record functionality
+    public MediaPlayer getInstance(){
+        return mediaPlayer;
     }
 
     public void playMedia(){
         mediaPlayer.prepareAsync();
         mediaPlayer.setOnPreparedListener(android.media.MediaPlayer::start);
         mediaPlayer.setLooping(true);
+        //Toast.makeText(context, "This radio is " + artist, Toast.LENGTH_SHORT).show();
+        }
     }
 
-}

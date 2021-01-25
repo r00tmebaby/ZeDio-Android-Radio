@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ZeDio</string>
-    
+    <string name="test">Test</string>
+
     <string-array name="filter_bys">
         <item>Name</item>
         <item>Genre</item>

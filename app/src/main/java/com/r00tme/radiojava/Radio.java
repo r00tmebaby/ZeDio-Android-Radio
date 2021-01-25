@@ -1,5 +1,8 @@
 package com.r00tme.radiojava;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class Radio {
     private final String radioName;
     private final String radioGenre;
@@ -7,11 +10,11 @@ public class Radio {
     private final String radioUrl;
     private final String radioLogo;
 
-    public Radio(String radio_name, String radio_genre, String radio_country, String radio_url, String radio_logo) {
+    public Radio(String radio_name, String radio_genre, String radio_country, String radio_url, String radio_logo){
         this.radioName = radio_name.trim();
         this.radioGenre = radio_genre.trim();
         this.radioCountry = radio_country.trim();
-        this.radioUrl = radio_url.trim();
+        this.radioUrl = radio_url;
         this.radioLogo = radio_logo.trim();
     }
 
@@ -20,8 +23,12 @@ public class Radio {
         return radioUrl;
     }
 
+    public URL getRadioURLobj() throws MalformedURLException {
+        return new URL(radioUrl);
+    }
+
     public String getRadioName() {
-        return radioName;
+       return  radioName;
     }
 
     public String getRadioLogo() {

@@ -1,16 +1,28 @@
 package com.r00tme.radiojava;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,18 +30,23 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private RadioAdapter radioAdapter;
     private String filteredBy;
-
+    private List<Radio> radioList = new ArrayList<>();
+    private PlayerAction player;
+    private MainActivity currentActivity;
+    private URL selectedRadioURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        currentActivity = this;
 
 // Set program exit activity  *************************************************
         ImageButton exitButton = findViewById(R.id.exit_button);
@@ -50,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
 //** Set radio list activity / Create RecycleView  *****************************
+
         RecyclerView recyclerView = findViewById(R.id.radio_view_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -62,6 +80,52 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         RadioAdapter finalRadioAdapter = radioAdapter;
 
 
+        TextView radioPlayingName = currentActivity.findViewById(R.id.playing_name);
+
+        ImageButton startRecordRadio = currentActivity.findViewById(R.id.start_recording);
+        ImageButton stopRadio = currentActivity.findViewById(R.id.stop_playing);
+
+        LinearLayout layout = findViewById(R.id.playing_radio_layout);
+
+        stopRadio.setOnClickListener(v -> {
+            player.stopMedia();
+            layout.setVisibility(View.GONE);
+        });
+
+
+        recyclerView.addOnItemTouchListener(
+
+                new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(View view, int position) {
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) throws MalformedURLException {
+
+                        if (radioList.size() > 0) {
+                            Radio selectedRadio = radioList.get(position);
+                            RequestOptions options = new RequestOptions()
+                                    .priority(Priority.HIGH)
+                                    .fitCenter()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+
+                            layout.setVisibility(View.VISIBLE);
+
+                            // Glide.with(currentActivity).asBitmap().apply(options).load(selectedRadio.getRadioLogo()).into(radioPlayingLogo);
+                            radioPlayingName.setText(selectedRadio.getRadioName());
+
+                            PlayerAction player = new PlayerAction(currentActivity, selectedRadio);
+                            currentActivity.player = player;
+                            selectedRadioURL = selectedRadio.getRadioURLobj();
+                            player.playMedia();
+                            updateTextView();
+
+                        }
+                    }
+                })
+        );
 
 //** Set search activity  ******************************************************
         SearchView simpleSearchView = findViewById(R.id.search_radio);
@@ -82,18 +146,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    @SuppressLint("SetTextI18n")
+    private void updateTextView() {
+        MainActivity.this.runOnUiThread((Runnable) () -> {
+            ParsingHeaderData streaming = new ParsingHeaderData();
+            ParsingHeaderData.TrackData trackData = streaming.getTrackDetails(selectedRadioURL);
+            TextView radioInfoText= findViewById(R.id.radio_info_data);
+            String displayInfo = "- No track information -";
+            if(trackData.artist.trim().length() > 0){
+                displayInfo = trackData.artist + " - "+ trackData.title;
+            }
+            radioInfoText.setText(displayInfo);
+        });
 
+    }
 
-/**
- *  Fetches the predefined text file from predefined URL
- *
- *  The file data structure -> Name, Genre, Country, StreamingUrl, LogoImage
- *  The file is read line by line and each line is slitted and added to the new Radio model
- *  Badly formatted data wont be added. The method expects exactly 5 elements
- *
- * @return Array of type Radio
- * @throws IOException if the URL is unreachable or file can not be read
- */
+    /**
+     * Fetches the predefined text file from predefined URL
+     * <p>
+     * The file data structure -> Name, Genre, Country, StreamingUrl, LogoImage
+     * The file is read line by line and each line is slitted and added to the new Radio model
+     * Badly formatted data wont be added. The method expects exactly 5 elements
+     *
+     * @return Array of type Radio
+     * @throws IOException if the URL is unreachable or file can not be read
+     */
     private ArrayList<Radio> fetchAllRadios() throws IOException {
         ArrayList<Radio> radioList = new ArrayList<>();
         //TODO Add an additional radio list fetch options/methods. Possibly TuneIn XML API
@@ -105,18 +182,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             BufferedReader file = new BufferedReader(new InputStreamReader(radioListUrl.openStream()));
             String str;
 
-            while ((str = file.readLine()) != null){
+            while ((str = file.readLine()) != null) {
                 String[] radioData = str.split(",");
-                if (radioData.length != 5){
+                if (radioData.length != 5) {
                     continue;
                 }
-                radioList.add(new Radio(radioData[0],radioData[1], radioData[2], radioData[3], radioData[4]));
+                radioList.add(new Radio(radioData[0], radioData[1], radioData[2], radioData[3], radioData[4]));
             }
             file.close();
-        }
-        catch (MalformedURLException e){
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+        this.radioList = radioList;
         return radioList;
     }
 
@@ -130,5 +207,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) { }
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 }

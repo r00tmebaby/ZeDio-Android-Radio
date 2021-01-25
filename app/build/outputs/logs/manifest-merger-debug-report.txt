@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
-INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
-INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
-INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
+ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
 MERGED from [com.google.android.material:material:1.2.1] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\7e5b6cf970b6ee458e94f0de4554e685\material-1.2.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\73327337a728e12c5c3cdecdb4b7e327\constraintlayout-2.0.4\AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.2.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\44b21666f861b2b454523071d69d07d7\appcompat-1.2.0\AndroidManifest.xml:17:1-24:12
@@ -38,22 +38,22 @@ MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] C:\Users\r00tme\.gradl
 MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\1435e0b5216c3fd72a2d6579c29d3ee1\lifecycle-livedata-core-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.arch.core:core-runtime:2.0.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\035487676af6db782633ffbdc1d98b21\core-runtime-2.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.0.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\3fd5b4b866d23b43b0e15439a0ee99e7\jetified-annotation-experimental-1.0.0\AndroidManifest.xml:17:1-24:12
-INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
-INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
-INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
+INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
 	package
 		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:4:5-35
 		INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
+		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
 		INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-33:12
+		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:1-36:12
 		INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:2:11-69
@@ -86,7 +86,7 @@ ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidMa
 	android:name
 		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:12:22-68
 application
-ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:13:5-31:19
+ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:13:5-34:19
 MERGED from [com.google.android.material:material:1.2.1] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\7e5b6cf970b6ee458e94f0de4554e685\material-1.2.1\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.2.1] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\7e5b6cf970b6ee458e94f0de4554e685\material-1.2.1\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.4] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\73327337a728e12c5c3cdecdb4b7e327\constraintlayout-2.0.4\AndroidManifest.xml:9:5-20
@@ -139,6 +139,12 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:28:17-77
 	android:name
 		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:28:27-74
+meta-data#preloaded_fonts
+ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:31:9-33:57
+	android:resource
+		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:33:13-54
+	android:name
+		ADDED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:32:13-43
 uses-sdk
 INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml

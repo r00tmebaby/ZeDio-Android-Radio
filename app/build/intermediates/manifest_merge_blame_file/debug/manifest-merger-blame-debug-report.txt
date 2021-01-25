@@ -30,7 +30,7 @@
 16-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:12:22-68
 17
 18    <application
-18-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:13:5-31:19
+18-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:13:5-34:19
 19        android:allowBackup="true"
 19-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:14:9-35
 20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
@@ -67,21 +67,28 @@
 36            </intent-filter>
 37        </activity>
 38
-39        <provider
-39-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
-40            android:name="com.squareup.picasso.PicassoProvider"
-40-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
-41            android:authorities="com.r00tme.radiojava.com.squareup.picasso"
-41-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
-42            android:exported="false" />
-42-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
-43
-44        <meta-data
-44-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:11:9-13:43
-45            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-45-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:12:13-84
-46            android:value="GlideModule" />
-46-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:13:13-40
-47    </application>
-48
-49</manifest>
+39        <meta-data
+39-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:31:9-33:57
+40            android:name="preloaded_fonts"
+40-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:32:13-43
+41            android:resource="@array/preloaded_fonts" />
+41-->C:\Users\r00tme\Documents\GitHub\Radio-Android\app\src\main\AndroidManifest.xml:33:13-54
+42
+43        <provider
+43-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:8:9-11:40
+44            android:name="com.squareup.picasso.PicassoProvider"
+44-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:9:13-64
+45            android:authorities="com.r00tme.radiojava.com.squareup.picasso"
+45-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:10:13-72
+46            android:exported="false" />
+46-->[com.squareup.picasso:picasso:2.71828] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\9aa61d620048fe7f7401d310264519c5\jetified-picasso-2.71828\AndroidManifest.xml:11:13-37
+47
+48        <meta-data
+48-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:11:9-13:43
+49            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+49-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:12:13-84
+50            android:value="GlideModule" />
+50-->[com.github.bumptech.glide:okhttp3-integration:4.11.0] C:\Users\r00tme\.gradle\caches\transforms-2\files-2.1\65f789fcb9ac3db04276175adf70bcee\jetified-okhttp3-integration-4.11.0\AndroidManifest.xml:13:13-40
+51    </application>
+52
+53</manifest>

@@ -68,8 +68,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="imagePath" value="F:\141725852_10218767461757300_533434384407786331_n.jpg" />
-                                                <entry key="scalingPercent" value="147" />
-                                                <entry key="trimmed" value="true" />
+                                                <entry key="scalingPercent" value="80" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -93,8 +92,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="F:\broadcast_radio_icon_155718 (1).png" />
-                                                <entry key="scalingPercent" value="87" />
+                                                <entry key="imagePath" value="F:\player-record_114434 (1).png" />
+                                                <entry key="scalingPercent" value="96" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -130,7 +129,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="2f87fe" />
+                                      <entry key="backgroundColor" value="fffdf5" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -299,6 +298,45 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="vectorAssetStep">
+                    <value>
+                      <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/fiber_manual_record/baseline_fiber_manual_record_24.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="autoMirrored" value="true" />
+                            <entry key="color" value="fe2401" />
+                            <entry key="outputName" value="ic_baseline_fiber_manual_record_24" />
+                            <entry key="sourceFile" value="C:\Users\r00tme\Documents\GitHub\Radio-Android" />
                           </map>
                         </option>
                       </PersistentState>

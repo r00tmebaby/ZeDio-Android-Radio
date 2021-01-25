@@ -1,12 +1,7 @@
 package com.r00tme.radiojava;
 
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.net.Uri;
 
-import android.net.wifi.WifiManager;
-import android.os.PowerManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +9,6 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -22,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +28,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
     private final ArrayList<Radio> radioListFull;
     private final ArrayList<Radio> radioList;
     private final Context mContext;
+
 
     public RadioAdapter(ArrayList<Radio> radioList, Context context) {
         this.radioList = radioList;
@@ -50,20 +45,24 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) throws ArrayIndexOutOfBoundsException{
+
         Radio currentRadio = this.radioList.get(position);
+
         RequestOptions options = new RequestOptions()
-                .priority(Priority.HIGH);
+                .priority(Priority.HIGH)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+
         Glide.with(mContext).asBitmap().load(currentRadio.getRadioLogo()).apply(options).into(holder.radioLogo);
+
         holder.radioName.setText(currentRadio.getRadioName());
         holder.radioGenre.setText(currentRadio.getRadioGenre());
         holder.radioCountry.setText(currentRadio.getRadioCountry());
+
         holder.radioViewLayout.setOnClickListener(v -> {
-            Toast.makeText(mContext, "Loading: " + currentRadio.getRadioName(), Toast.LENGTH_LONG).show();
-            PlayerAction player = new PlayerAction(mContext, currentRadio);
-            player.playMedia();
+            //Not in use at the moment. Activity moved to MainActivity class
         });
     }
-
 
     @Override
     public int getItemCount() {
