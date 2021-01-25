@@ -1,16 +1,9 @@
 package com.r00tme.radiojava;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.PowerManager;
-import android.widget.Toast;
-
-import androidx.annotation.RequiresApi;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
