@@ -24,7 +24,7 @@ It has really simple but frendly user interface and uses the build in media play
                                 <li> Changed layout </li>
                                 <li> On play showing a toolbar with radio name </li>
                                 <li> Displaying song title and artist if metadata exists</li>
-                                <li> Added stop button (functionality may change prior of doing the record function, not final) </li>
+                                <li> Added stop button (functionality orks but the behaviour may be changed prior of adding record function) </li>
                         </ul>
                 </td>
         </tr>
