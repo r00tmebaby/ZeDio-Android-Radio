@@ -1,7 +1,10 @@
-#Mon Jan 25 17:24:03 GMT 2021
-base.0=C\:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-path.1=classes.dex
+#Wed Jun 16 01:27:01 BST 2021
+base.2=C\:\\Users\\r00tme\\StudioProjects\\ZeDio-Android-Radio\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
+path.2=14/classes.dex
+base.1=C\:\\Users\\r00tme\\StudioProjects\\ZeDio-Android-Radio\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+path.1=0/classes.dex
+base.0=C\:\\Users\\r00tme\\StudioProjects\\ZeDio-Android-Radio\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+renamed.2=classes3.dex
 renamed.1=classes2.dex
-path.0=classes.dex
 renamed.0=classes.dex
-base.1=C\:\\Users\\r00tme\\Documents\\GitHub\\Radio-Android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
+path.0=classes.dex

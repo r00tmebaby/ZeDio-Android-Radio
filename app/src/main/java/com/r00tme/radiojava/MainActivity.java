@@ -27,8 +27,10 @@ import com.bumptech.glide.request.RequestOptions;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.InvalidObjectException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,7 +142,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                 //TODO improving the construction of the search data. Possibly not regex to be used.
 
-                finalRadioAdapter.getFilter().filter(filteredBy + "#" + newText);
+                if (finalRadioAdapter != null)
+                    finalRadioAdapter.getFilter().filter(filteredBy + "#" + newText);
                 return false;
             }
         });
@@ -178,12 +181,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitNetwork().build());
         try {
-            URL radioListUrl = new URL("https://t-nikolov.com/radio/radio.txt");
+            URL radioListUrl = new URL("http://r00tme.co.uk/api/radio-android.txt");
             BufferedReader file = new BufferedReader(new InputStreamReader(radioListUrl.openStream()));
             String str;
 
             while ((str = file.readLine()) != null) {
                 String[] radioData = str.split(",");
+                System.out.println(radioData);
                 if (radioData.length != 5) {
                     continue;
                 }
@@ -191,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
             file.close();
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new InvalidObjectException("Can not access the remote link, containing all radios");
         }
         this.radioList = radioList;
         return radioList;
