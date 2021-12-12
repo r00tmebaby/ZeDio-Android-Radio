@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.vincan.medialoader.MediaLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.PowerManager;
+import com.vincan.medialoader.MediaLoader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,7 +37,10 @@ class PlayerAction  {
 
         try {
             mediaPlayer.reset();
-            mediaPlayer.setDataSource(String.valueOf(Uri.parse(currentRadio.getRadioUrl())));
+            String cachedStream = MediaLoader
+                    .getInstance(context)
+                    .getProxyUrl(String.valueOf(Uri.parse(currentRadio.getRadioUrl())));
+            mediaPlayer.setDataSource(cachedStream);
         } catch (
                 IOException e) {
             e.printStackTrace();
