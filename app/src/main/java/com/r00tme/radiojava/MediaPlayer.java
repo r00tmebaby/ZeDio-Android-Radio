@@ -1,19 +1,11 @@
 package com.r00tme.radiojava;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
-import android.os.Environment;
 import android.os.PowerManager;
-
-import com.vincan.medialoader.DefaultConfigFactory;
-import com.vincan.medialoader.DownloadManager;
 import com.vincan.medialoader.MediaLoader;
-import com.vincan.medialoader.MediaLoaderConfig;
-import com.vincan.medialoader.data.file.naming.HashCodeFileNameCreator;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,11 +19,14 @@ class PlayerAction  {
     private final Context context;
     private final Radio currentRadio;
     private static Radio previousRadio = null;
+    WifiManager.WifiLock wifiLock;
 
     public PlayerAction(Context context, Radio radio) {
 
         this.context  = context;
         this.currentRadio = radio;
+        WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        this.wifiLock = wm.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "ZedioLock");
 
         if(previousRadio == null){
             previousRadio = radio;
@@ -42,13 +37,12 @@ class PlayerAction  {
 
     private void initPlayer(){
         //Set CPU lock, draw battery all time until get released
+        mediaPlayer.reset();
         mediaPlayer.setWakeMode(context, PowerManager.PARTIAL_WAKE_LOCK);
-        WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiManager.WifiLock wifiLock = wm.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "MyWifiLock");
         wifiLock.acquire();
+
         try {
-            mediaPlayer.reset();
-            mediaPlayer.setDataSource(String.valueOf(Uri.parse(currentRadio.getRadioUrl())));
+            mediaPlayer.setDataSource(currentRadio.getRadioUrl());
         } catch (
                 IOException e) {
             e.printStackTrace();
@@ -63,11 +57,16 @@ class PlayerAction  {
         return formatter.format(date);
     }
 
-    public void recordMedia() throws IOException {
+    public void recordMedia(){
+
     }
 
     public void stopMedia(){
-
+        if (wifiLock != null) {
+            if (wifiLock.isHeld()) {
+                wifiLock.release();
+            }
+        }
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
             mediaPlayer.release();

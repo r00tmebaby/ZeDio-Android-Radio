@@ -95,13 +95,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             layout.setVisibility(View.GONE);
         });
 
-        startRecordRadio.setOnClickListener(e ->{
-            try {
-                player.recordMedia();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-        });
 
         recyclerView.addOnItemTouchListener(
 
@@ -116,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
                         if (radioList.size() > 0) {
                             Radio selectedRadio = radioList.get(position);
+                            RequestOptions options = new RequestOptions()
+                                    .priority(Priority.HIGH)
+                                    .fitCenter()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL);
 
                             layout.setVisibility(View.VISIBLE);
 
@@ -127,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                             selectedRadioURL = selectedRadio.getRadioURLobj();
                             player.playMedia();
                             updateTextView();
+
                         }
                     }
                 })
@@ -190,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
             while ((str = file.readLine()) != null) {
                 String[] radioData = str.split(",");
+                System.out.println(radioData);
                 if (radioData.length != 5) {
                     continue;
                 }
