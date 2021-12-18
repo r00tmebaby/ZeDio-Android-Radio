@@ -1,4 +1,4 @@
-package com.r00tme.radiojava;
+package com.r00tme.ZeDio;
 
 import android.text.TextUtils;
 import android.util.Log;

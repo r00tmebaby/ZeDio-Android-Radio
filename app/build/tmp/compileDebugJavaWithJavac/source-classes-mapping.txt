@@ -1,21 +1,21 @@
-com/r00tme/radiojava/Radio.java
- com.r00tme.radiojava.Radio
-com/r00tme/radiojava/RadioAdapter.java
- com.r00tme.radiojava.RadioAdapter
- com.r00tme.radiojava.RadioAdapter$1
- com.r00tme.radiojava.RadioAdapter$ViewHolder
-com/r00tme/radiojava/ParsingHeaderData.java
- com.r00tme.radiojava.ParsingHeaderData
- com.r00tme.radiojava.ParsingHeaderData$TrackData
-com/r00tme/radiojava/BuildConfig.java
- com.r00tme.radiojava.BuildConfig
-com/r00tme/radiojava/RecyclerItemClickListener.java
- com.r00tme.radiojava.RecyclerItemClickListener
- com.r00tme.radiojava.RecyclerItemClickListener$1
- com.r00tme.radiojava.RecyclerItemClickListener$OnItemClickListener
-com/r00tme/radiojava/MainActivity.java
- com.r00tme.radiojava.MainActivity
- com.r00tme.radiojava.MainActivity$1
- com.r00tme.radiojava.MainActivity$2
-com/r00tme/radiojava/MediaPlayer.java
- com.r00tme.radiojava.PlayerAction
+com/r00tme/ZeDio/RadioAdapter.java
+ com.r00tme.ZeDio.RadioAdapter
+ com.r00tme.ZeDio.RadioAdapter$1
+ com.r00tme.ZeDio.RadioAdapter$ViewHolder
+com/r00tme/ZeDio/BuildConfig.java
+ com.r00tme.ZeDio.BuildConfig
+com/r00tme/ZeDio/RecyclerItemClickListener.java
+ com.r00tme.ZeDio.RecyclerItemClickListener
+ com.r00tme.ZeDio.RecyclerItemClickListener$1
+ com.r00tme.ZeDio.RecyclerItemClickListener$OnItemClickListener
+com/r00tme/ZeDio/Radio.java
+ com.r00tme.ZeDio.Radio
+com/r00tme/ZeDio/ParsingHeaderData.java
+ com.r00tme.ZeDio.ParsingHeaderData
+ com.r00tme.ZeDio.ParsingHeaderData$TrackData
+com/r00tme/ZeDio/MainActivity.java
+ com.r00tme.ZeDio.MainActivity
+ com.r00tme.ZeDio.MainActivity$1
+ com.r00tme.ZeDio.MainActivity$2
+com/r00tme/ZeDio/MediaPlayer.java
+ com.r00tme.ZeDio.PlayerAction

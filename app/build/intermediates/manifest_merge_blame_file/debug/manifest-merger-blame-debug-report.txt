@@ -55,8 +55,8 @@
 31-->C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:20:9-44
 32        <activity
 32-->C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:9-31:20
-33            android:name="com.r00tme.radiojava.MainActivity"
-33-->C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:44-72
+33            android:name="com.r00tme.ZeDio.MainActivity"
+33-->C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:44-88
 34            android:exported="true" >
 34-->C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:20-43
 35            <intent-filter>

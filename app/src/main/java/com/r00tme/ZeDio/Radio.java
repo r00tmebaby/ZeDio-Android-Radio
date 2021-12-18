@@ -1,4 +1,4 @@
-package com.r00tme.radiojava;
+package com.r00tme.ZeDio;
 
 import java.net.MalformedURLException;
 import java.net.URL;

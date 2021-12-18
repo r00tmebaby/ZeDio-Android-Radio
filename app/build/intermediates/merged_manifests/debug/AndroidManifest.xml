@@ -30,7 +30,7 @@
         android:theme="@style/Theme.RadioJava"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name="com.r00tme.radiojava.MainActivity"
+            android:name="com.r00tme.ZeDio.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

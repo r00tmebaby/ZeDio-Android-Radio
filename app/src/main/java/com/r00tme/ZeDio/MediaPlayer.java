@@ -1,14 +1,22 @@
-package com.r00tme.radiojava;
+package com.r00tme.ZeDio;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
+import android.media.MediaRecorder;
 import android.net.wifi.WifiManager;
+import android.os.Environment;
 import android.os.PowerManager;
-import com.vincan.medialoader.MediaLoader;
+import android.util.Log;
+import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.RecursiveTask;
 
 
 class PlayerAction  {
@@ -57,7 +65,16 @@ class PlayerAction  {
         return formatter.format(date);
     }
 
-    public void recordMedia(){
+    public void recordMedia() throws IOException {
+            MediaRecorder mr = new MediaRecorder();
+            String filePath = Environment.getDownloadCacheDirectory() + File.separator+ getDate() + ".aac" + File.separator;
+            mr.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mr.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
+            mr.setOutputFile(filePath);
+            //Toast.makeText(context, filePath, Toast.LENGTH_LONG).show();
+            mr.prepare();
+            mr.start();
+
 
     }
 

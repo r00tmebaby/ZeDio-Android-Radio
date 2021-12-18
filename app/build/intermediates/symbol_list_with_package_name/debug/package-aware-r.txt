@@ -1,4 +1,4 @@
-com.r00tme.radiojava
+com.r00tme.ZeDio
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom

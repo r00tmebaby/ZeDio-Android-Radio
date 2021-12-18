@@ -1,7 +1,7 @@
 /**
  * Automatically generated file. DO NOT MODIFY
  */
-package com.r00tme.radiojava;
+package com.r00tme.ZeDio;
 
 public final class BuildConfig {
   public static final boolean DEBUG = Boolean.parseBoolean("true");

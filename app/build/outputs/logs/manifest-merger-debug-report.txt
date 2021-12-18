@@ -54,7 +54,7 @@ INJECTED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\
 INJECTED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:2:1-37:12
 INJECTED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:2:1-37:12
 	package
-		ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:4:5-35
+		ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:4:5-31
 		INJECTED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml
 	android:versionName
@@ -149,12 +149,12 @@ MERGED from [androidx.startup:startup-runtime:1.0.0] C:\Users\r00tme\.gradle\cac
 		ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:21:9-47
 	android:usesCleartextTraffic
 		ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:20:9-44
-activity#com.r00tme.radiojava.MainActivity
+activity#com.r00tme.ZeDio.MainActivity
 ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:9-31:20
 	android:exported
 		ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:20-43
 	android:name
-		ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:44-72
+		ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:24:44-88
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from C:\Users\r00tme\StudioProjects\ZeDio-Android-Radio-2\app\src\main\AndroidManifest.xml:26:13-30:29
 action#android.intent.action.MAIN

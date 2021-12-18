@@ -1,13 +1,19 @@
-package com.r00tme.radiojava;
+package com.r00tme.ZeDio;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,13 +23,11 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.vincan.medialoader.MediaLoader;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,19 +35,23 @@ import java.io.InputStreamReader;
 import java.io.InvalidObjectException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private static final int RECORD_AUDIO_REQUEST_CODE = 10;
     private RadioAdapter radioAdapter;
     private String filteredBy;
     private List<Radio> radioList = new ArrayList<>();
     private PlayerAction player;
     private MainActivity currentActivity;
     private URL selectedRadioURL;
+
+    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +103,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             layout.setVisibility(View.GONE);
         });
 
-
+        startRecordRadio.setOnClickListener(e->{
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.RECORD_AUDIO },
+                        10);
+            } else {
+                try {
+                    player.recordMedia();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
         recyclerView.addOnItemTouchListener(
 
                 new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
