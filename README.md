@@ -12,6 +12,7 @@ It has really simple but frendly user interface and uses the build in media play
         <tr>
                 <td>Version 0.1</td>
                 <td>Version 0.2</td>
+                <td>Version 0.3</td>
         </tr>
         <tr>
                 <td>
