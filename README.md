@@ -10,9 +10,9 @@ It has really simple but frendly user interface and uses the build in media play
 
 <table style="border:0 !important">
         <tr>
-                <td>Version 0.1</td>
-                <td>Version 0.2</td>
-                <td>Version 0.3</td>
+                <td><a href="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/apk">Version 0.1</a></td>
+                <td><a href="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/apk">Version 0.2</a></td>
+                <td><a href="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/apk">Version 0.3</a></td>
         </tr>
         <tr>
                 <td>
