@@ -1,7 +1,6 @@
 package com.r00tme.ZeDio;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,21 +13,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ParsingHeaderData {
-    public class TrackData {
+    public static class TrackData {
         public String artist = "";
         public String title = "";
     }
 
     protected URL streamUrl;
     private Map<String, String> metadata;
-    private TrackData trackData;
 
     public ParsingHeaderData() {
 
     }
 
     public TrackData getTrackDetails(URL streamUrl) {
-        trackData = new TrackData();
+        TrackData trackData = new TrackData();
         setStreamUrl(streamUrl);
         String strTitle;
         String strArtist = null;
@@ -37,15 +35,19 @@ public class ParsingHeaderData {
             if (metadata != null) {
                 String streamHeading = "";
                 Map<String, String> data = metadata;
-                if (data != null && data.containsKey("StreamTitle")) {
+                if (data.containsKey("StreamTitle")) {
                     strArtist = data.get("StreamTitle");
                     streamHeading = strArtist;
                 }
-                if (!TextUtils.isEmpty(strArtist) && strArtist.contains("-")) {
-                    strArtist = strArtist.substring(0, strArtist.indexOf("-"));
-                    trackData.artist = strArtist.trim();
+                if (!TextUtils.isEmpty(strArtist)) {
+                    assert strArtist != null;
+                    if (strArtist.contains("-")) {
+                        strArtist = strArtist.substring(0, strArtist.indexOf("-"));
+                        trackData.artist = strArtist.trim();
+                    }
                 }
                 if (!TextUtils.isEmpty(streamHeading)) {
+                    assert streamHeading != null;
                     if (streamHeading.contains("-")) {
                         strTitle = streamHeading.substring(streamHeading
                                 .indexOf("-") + 1);
@@ -62,7 +64,6 @@ public class ParsingHeaderData {
 
     private URLConnection con;
     private InputStream stream;
-    private List<String> headerList;
 
     private Map<String, String> executeToFetchData() throws IOException {
         try {
@@ -78,7 +79,7 @@ public class ParsingHeaderData {
             stream = con.getInputStream();
 
             if (headers.containsKey("icy-metaint")) {
-                headerList = headers.get("icy-metaint");
+                List<String> headerList = headers.get("icy-metaint");
                 if (headerList != null) {
                     if (headerList.size() > 0) {
                         metaDataOffset = Integer.parseInt(headers.get(
@@ -123,9 +124,7 @@ public class ParsingHeaderData {
             }
             metadata = ParsingHeaderData.parsingMetadata(metaData.toString());
             stream.close();
-        } catch (Exception e) {
-            if (e != null && e.equals(null))
-                Log.e("Error", e.getMessage());
+        } catch (Exception ignored) {
         } finally {
             if (stream != null)
                 stream.close();

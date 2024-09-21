@@ -11,6 +11,7 @@ android {
     defaultConfig {
         applicationId "com.r00tme.radiojava"
         minSdkVersion 23
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 31
         versionCode 1
         versionName "1.0"
@@ -31,7 +32,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.vincan:medialoader:1.0.0'
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.0' // ExoPlayer
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1' // OkHttp library
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'com.google.android.exoplayer:extension-okhttp:2.18.0'
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'

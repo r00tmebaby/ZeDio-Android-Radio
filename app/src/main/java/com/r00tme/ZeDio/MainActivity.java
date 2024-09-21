@@ -1,28 +1,17 @@
 package com.r00tme.ZeDio;
 
+import android.widget.*;
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
-
-import android.widget.LinearLayout;
-import android.widget.SearchView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 
 import com.bumptech.glide.Priority;
@@ -36,6 +25,7 @@ import java.io.InvalidObjectException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -49,10 +39,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private MainActivity currentActivity;
     private URL selectedRadioURL;
 
-    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == RECORD_AUDIO_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                try {
+                    player.recordMedia();  // Start recording when permission is granted
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Permission denied, show a message to the user
+                Toast.makeText(
+                        this,
+                        "Recording permission denied. Please enable it in settings to record audio.",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
+        }
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,16 +108,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             layout.setVisibility(View.GONE);
         });
 
-        startRecordRadio.setOnClickListener(e->{
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
-                    != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.RECORD_AUDIO },
-                        10);
+        startRecordRadio.setOnClickListener(e -> {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_REQUEST_CODE);
             } else {
-                try {
-                    player.recordMedia();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                if (!player.isRecording()) {  // Start recording
+                    try {
+                        player.recordMedia();
+                        startRecordRadio.setImageResource(R.drawable.ic_baseline_stop_24);
+                        Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show();  // Make sure Toast is placed here
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                } else {  // Stop recording
+                    player.stopRecording();
+                    startRecordRadio.setImageResource(R.drawable.ic_baseline_fiber_manual_record_24);
+                    Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show();  // Make sure Toast is placed here
                 }
             }
         });
@@ -127,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     @Override
                     public void onLongItemClick(View view, int position) throws MalformedURLException {
 
-                        if (radioList.size() > 0) {
+                        if (!radioList.isEmpty()) {
                             Radio selectedRadio = radioList.get(position);
                             RequestOptions options = new RequestOptions()
                                     .priority(Priority.HIGH)
@@ -177,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             ParsingHeaderData.TrackData trackData = streaming.getTrackDetails(selectedRadioURL);
             TextView radioInfoText= findViewById(R.id.radio_info_data);
             String displayInfo = "- No track information -";
-            if(trackData.artist.trim().length() > 0){
+            if(!trackData.artist.trim().isEmpty()){
                 displayInfo = trackData.artist + " - "+ trackData.title;
             }
             radioInfoText.setText(displayInfo);
@@ -190,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * <p>
      * The file data structure -> Name, Genre, Country, StreamingUrl, LogoImage
      * The file is read line by line and each line is slitted and added to the new Radio model
-     * Badly formatted data wont be added. The method expects exactly 5 elements
+     * Badly formatted data won't be added. The method expects exactly 5 elements
      *
      * @return Array of type Radio
      * @throws IOException if the URL is unreachable or file can not be read
@@ -202,13 +213,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                 .permitNetwork().build());
         try {
-            URL radioListUrl = new URL("http://r00tme.co.uk/api/radio-android.txt");
+            URL radioListUrl = new URL("https://zdpainters.com/zedio/radio-android.txt");
             BufferedReader file = new BufferedReader(new InputStreamReader(radioListUrl.openStream()));
             String str;
 
             while ((str = file.readLine()) != null) {
                 String[] radioData = str.split(",");
-                System.out.println(radioData);
+                System.out.println(Arrays.toString(radioData));
                 if (radioData.length != 5) {
                     continue;
                 }

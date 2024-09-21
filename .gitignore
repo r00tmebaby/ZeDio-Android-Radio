@@ -1,0 +1,10 @@
+/.gradle/
+/.idea/
+/jdks/
+/native/
+/daemon/
+/caches/
+/app/build/
+/app/debug/
+/app/apk/
+/app/release/

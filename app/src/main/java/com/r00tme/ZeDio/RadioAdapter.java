@@ -1,5 +1,6 @@
 package com.r00tme.ZeDio;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import android.view.LayoutInflater;
@@ -101,6 +102,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
             return results;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             radioList.clear();
