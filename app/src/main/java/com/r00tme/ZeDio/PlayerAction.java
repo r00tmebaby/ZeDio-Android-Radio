@@ -63,7 +63,7 @@ public class PlayerAction {
     private void initPlayer() {
         // Custom LoadControl for buffering configurations
         LoadControl loadControl = new DefaultLoadControl.Builder()
-                .setAllocator(new DefaultAllocator(true, DefaultLoadControl.DEFAULT_AUDIO_BUFFER_SIZE))
+                .setAllocator(new DefaultAllocator(true, 4096))
                 .setBufferDurationsMs(
                         4000, // Min buffer before start (4 seconds)
                         9000, // Max buffer size (9 seconds)

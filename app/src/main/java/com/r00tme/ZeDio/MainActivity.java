@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             if(!trackData.artist.trim().isEmpty()){
                 displayInfo = trackData.artist + " - "+ trackData.title;
             }
+
             radioInfoText.setText(displayInfo);
         });
 

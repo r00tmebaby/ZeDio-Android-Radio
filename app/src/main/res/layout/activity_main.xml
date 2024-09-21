@@ -85,28 +85,14 @@
             android:layout_height="30dp">
 
             <TextView
-                android:id="@+id/radio_info_data"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:ellipsize="middle"
-                android:fontFamily="@font/aclonica"
-                android:includeFontPadding="true"
-                android:lineSpacingMultiplier="2"
-                android:padding="3dp"
-                android:scrollbarSize="4dp"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                android:textColor="#F4F4F4"
-                android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF"
-                android:textColorLink="#121111"
-                android:textCursorDrawable="@drawable/placeholder"
-                android:textDirection="firstStrongRtl"
-                android:textIsSelectable="false"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                app:autoSizeTextType="none" />
+                    android:id="@+id/radio_info_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="12sp"
+                    android:textColor="#F4F4F4"
+                    android:textAlignment="center"
+                    android:textDirection="ltr" />
         </LinearLayout>
 
         <LinearLayout

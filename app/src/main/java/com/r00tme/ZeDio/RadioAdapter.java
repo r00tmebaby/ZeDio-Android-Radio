@@ -3,6 +3,7 @@ package com.r00tme.ZeDio;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder> implements Filterable {
+public class RadioAdapter extends RecyclerView.Adapter<RadioAdapter.ViewHolder> implements Filterable {
 
     private static final String TAG = "RadioViewAdapter";
     private final ArrayList<Radio> radioListFull;
@@ -45,7 +46,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) throws ArrayIndexOutOfBoundsException{
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) throws ArrayIndexOutOfBoundsException {
 
         Radio currentRadio = this.radioList.get(position);
 
@@ -80,19 +81,17 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Radio> filteredRadioList = new ArrayList<>();
             String[] getData = constraint.toString().split("#");
-            if(getData.length == 1){
+            if (getData.length == 1) {
                 filteredRadioList.addAll(radioListFull);
-            }else{
+            } else {
                 String filterBy = getData[0];
                 String searchSequence = getData[1].toLowerCase().trim();
-                for (Radio item: radioListFull) {
-                    if(filterBy.contains("Name") && item.getRadioName().toLowerCase().contains(searchSequence)){
+                for (Radio item : radioListFull) {
+                    if (filterBy.contains("Name") && item.getRadioName().toLowerCase().contains(searchSequence)) {
                         filteredRadioList.add(item);
-                    }
-                    else if(filterBy.contains("Genre") && item.getRadioGenre().toLowerCase().contains(searchSequence)){
+                    } else if (filterBy.contains("Genre") && item.getRadioGenre().toLowerCase().contains(searchSequence)) {
                         filteredRadioList.add(item);
-                    }
-                    else if(filterBy.contains("Country") && item.getRadioCountry().toLowerCase().contains(searchSequence)){
+                    } else if (filterBy.contains("Country") && item.getRadioCountry().toLowerCase().contains(searchSequence)) {
                         filteredRadioList.add(item);
                     }
                 }
@@ -111,7 +110,7 @@ public class RadioAdapter extends  RecyclerView.Adapter<RadioAdapter.ViewHolder>
         }
     };
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView radioLogo;
         TextView radioName;
