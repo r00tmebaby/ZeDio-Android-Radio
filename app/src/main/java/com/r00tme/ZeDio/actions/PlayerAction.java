@@ -1,4 +1,4 @@
-package com.r00tme.ZeDio;
+package com.r00tme.ZeDio.actions;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,55 +9,43 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlayer;
-import com.google.android.exoplayer2.LoadControl;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.Player;
+import com.google.android.exoplayer2.*;
 import com.google.android.exoplayer2.audio.AudioAttributes;
-
 import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSourceFactory;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
-import com.google.android.exoplayer2.upstream.DefaultAllocator;
 import com.google.android.exoplayer2.upstream.DataSource;
-
+import com.google.android.exoplayer2.upstream.DefaultAllocator;
+import com.r00tme.ZeDio.classes.Radio;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+import javax.net.ssl.*;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.cert.CertificateException;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.io.FileOutputStream;
 import java.util.Objects;
 
 public class PlayerAction {
 
     private static final String TAG = "PlayerAction";
-    private ExoPlayer exoPlayer;
+    private static final long WAKELOCK_REFRESH_INTERVAL = 9 * 60 * 1000L; // 9 minutes (to refresh before the 10-min timeout)
     private final Context context;
     private final Radio currentRadio;
     private final WifiManager.WifiLock wifiLock;
+    private final Handler wakeLockHandler = new Handler(Looper.getMainLooper());
+    private ExoPlayer exoPlayer;
     private FileOutputStream outputStream;
     private boolean isRecording = false;
     private boolean isStoppingRecording = false;
     private PowerManager.WakeLock wakeLock;
-    private static final long WAKELOCK_REFRESH_INTERVAL = 9 * 60 * 1000L; // 9 minutes (to refresh before the 10-min timeout)
     private boolean isWakeLockRefreshScheduled = false;
-    private final Handler wakeLockHandler = new Handler(Looper.getMainLooper());
 
     public PlayerAction(Context context, Radio radio) {
         this.context = context;
@@ -290,6 +278,7 @@ public class PlayerAction {
             }
         }
     }
+
     // Get unsafe OkHttpClient that trusts all certificates
     private OkHttpClient getUnsafeOkHttpClient() {
         try {

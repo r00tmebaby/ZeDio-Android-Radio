@@ -1,4 +1,4 @@
-package com.r00tme.ZeDio;
+package com.r00tme.ZeDio.classes;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,7 +10,7 @@ public class Radio {
     private final String radioUrl;
     private final String radioLogo;
 
-    public Radio(String radio_name, String radio_genre, String radio_country, String radio_url, String radio_logo){
+    public Radio(String radio_name, String radio_genre, String radio_country, String radio_url, String radio_logo) {
         this.radioName = radio_name.trim();
         this.radioGenre = radio_genre.trim();
         this.radioCountry = radio_country.trim();
@@ -28,7 +28,7 @@ public class Radio {
     }
 
     public String getRadioName() {
-       return  radioName;
+        return radioName;
     }
 
     public String getRadioLogo() {

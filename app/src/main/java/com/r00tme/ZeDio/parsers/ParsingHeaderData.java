@@ -1,4 +1,4 @@
-package com.r00tme.ZeDio;
+package com.r00tme.ZeDio.parsers;
 
 import android.text.TextUtils;
 
@@ -13,16 +13,29 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ParsingHeaderData {
-    public static class TrackData {
-        public String artist = "";
-        public String title = "";
-    }
-
     protected URL streamUrl;
     private Map<String, String> metadata;
+    private URLConnection con;
+    private InputStream stream;
 
     public ParsingHeaderData() {
 
+    }
+
+    public static Map<String, String> parsingMetadata(String metaString) {
+        @SuppressWarnings({"rawtypes", "unchecked"})
+        Map<String, String> metadata = new HashMap();
+        String[] metaParts = metaString.split(";");
+        Pattern p = Pattern.compile("^([a-zA-Z]+)='([^']*)'$");
+        Matcher m;
+        for (String metaPart : metaParts) {
+            m = p.matcher(metaPart);
+            if (m.find()) {
+                metadata.put(m.group(1), m.group(2));
+            }
+        }
+
+        return metadata;
     }
 
     public TrackData getTrackDetails(URL streamUrl) {
@@ -61,9 +74,6 @@ public class ParsingHeaderData {
 
         return trackData;
     }
-
-    private URLConnection con;
-    private InputStream stream;
 
     private Map<String, String> executeToFetchData() throws IOException {
         try {
@@ -142,19 +152,8 @@ public class ParsingHeaderData {
         this.streamUrl = streamUrl;
     }
 
-    public static Map<String, String> parsingMetadata(String metaString) {
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        Map<String, String> metadata = new HashMap();
-        String[] metaParts = metaString.split(";");
-        Pattern p = Pattern.compile("^([a-zA-Z]+)='([^']*)'$");
-        Matcher m;
-        for (String metaPart : metaParts) {
-            m = p.matcher(metaPart);
-            if (m.find()) {
-                metadata.put((String) m.group(1), (String) m.group(2));
-            }
-        }
-
-        return metadata;
+    public static class TrackData {
+        public String artist = "";
+        public String title = "";
     }
 }

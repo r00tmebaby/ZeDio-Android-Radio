@@ -1,22 +1,24 @@
 package com.r00tme.ZeDio;
 
-import android.widget.*;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
-
-
+import android.widget.*;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.r00tme.ZeDio.actions.PlayerAction;
+import com.r00tme.ZeDio.adapters.RadioAdapter;
+import com.r00tme.ZeDio.classes.Radio;
+import com.r00tme.ZeDio.parsers.ParsingHeaderData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,7 +41,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private MainActivity currentActivity;
     private URL selectedRadioURL;
 
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(
+            int requestCode,
+            @NonNull String[] permissions,
+            @NonNull int[] grantResults
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == RECORD_AUDIO_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,13 +190,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @SuppressLint("SetTextI18n")
     private void updateTextView() {
-        MainActivity.this.runOnUiThread((Runnable) () -> {
+        MainActivity.this.runOnUiThread(() -> {
             ParsingHeaderData streaming = new ParsingHeaderData();
             ParsingHeaderData.TrackData trackData = streaming.getTrackDetails(selectedRadioURL);
-            TextView radioInfoText= findViewById(R.id.radio_info_data);
+            TextView radioInfoText = findViewById(R.id.radio_info_data);
             String displayInfo = "- No track information -";
-            if(!trackData.artist.trim().isEmpty()){
-                displayInfo = trackData.artist + " - "+ trackData.title;
+            if (!trackData.artist.trim().isEmpty()) {
+                displayInfo = trackData.artist + " - " + trackData.title;
             }
 
             radioInfoText.setText(displayInfo);
@@ -204,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
      * The file is read line by line and each line is slitted and added to the new Radio model
      * Badly formatted data won't be added. The method expects exactly 5 elements
      *
-     * @return Array of type Radio
+     * @return List of type Radio
      * @throws IOException if the URL is unreachable or file can not be read
      */
     private ArrayList<Radio> fetchAllRadios() throws IOException {
