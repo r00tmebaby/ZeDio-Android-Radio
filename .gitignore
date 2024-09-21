@@ -8,3 +8,4 @@
 /app/debug/*
 /app/apk/*
 /app/release/*
+/gradle/

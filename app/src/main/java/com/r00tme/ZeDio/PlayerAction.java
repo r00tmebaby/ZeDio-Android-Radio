@@ -2,9 +2,10 @@ package com.r00tme.ZeDio;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.MediaRecorder;
 import android.net.wifi.WifiManager;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,9 +27,11 @@ import com.google.android.exoplayer2.upstream.DataSource;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.cert.CertificateException;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -38,6 +41,8 @@ import javax.net.ssl.X509TrustManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.io.FileOutputStream;
+import java.util.Objects;
 
 public class PlayerAction {
 
@@ -46,9 +51,13 @@ public class PlayerAction {
     private final Context context;
     private final Radio currentRadio;
     private final WifiManager.WifiLock wifiLock;
-    private MediaRecorder mediaRecorder;
+    private FileOutputStream outputStream;
     private boolean isRecording = false;
+    private boolean isStoppingRecording = false;
     private PowerManager.WakeLock wakeLock;
+    private static final long WAKELOCK_REFRESH_INTERVAL = 9 * 60 * 1000L; // 9 minutes (to refresh before the 10-min timeout)
+    private boolean isWakeLockRefreshScheduled = false;
+    private final Handler wakeLockHandler = new Handler(Looper.getMainLooper());
 
     public PlayerAction(Context context, Radio radio) {
         this.context = context;
@@ -58,8 +67,62 @@ public class PlayerAction {
         this.wifiLock = wm.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "ZedioLock");
 
         initPlayer();
+        initWakeLock();  // Initialize wake lock here
     }
 
+    // Initialize the wake lock
+    private void initWakeLock() {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Zedio:WakeLock");
+    }
+
+    // Acquire the wake lock and schedule refresh
+    private void acquireWakeLock() {
+        if (wakeLock != null && !wakeLock.isHeld()) {
+            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/); // Acquire with timeout
+            scheduleWakeLockRefresh(); // Schedule refresh
+        }
+    }
+
+    // Release the wake lock and cancel refresh
+    private void releaseWakeLock() {
+        if (wakeLock != null && wakeLock.isHeld()) {
+            wakeLock.release();
+        }
+        cancelWakeLockRefresh(); // Cancel any scheduled refreshes
+    }
+
+    // Cancel the scheduled wake lock refresh
+    private void cancelWakeLockRefresh() {
+        if (isWakeLockRefreshScheduled) {
+            wakeLockHandler.removeCallbacksAndMessages(null); // Cancel refresh callbacks
+            isWakeLockRefreshScheduled = false;
+        }
+    }
+
+    // Schedule wake lock refresh to keep it active
+    private void scheduleWakeLockRefresh() {
+        if (!isWakeLockRefreshScheduled) {
+            wakeLockHandler.postDelayed(this::refreshWakeLock, WAKELOCK_REFRESH_INTERVAL);
+            isWakeLockRefreshScheduled = true;
+        }
+    }
+
+    // Refresh the wake lock
+    private void refreshWakeLock() {
+        if (wakeLock != null && wakeLock.isHeld()) {
+            wakeLock.release();
+            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/); // Re-acquire to refresh
+        }
+        // Reschedule refresh if still playing
+        if (exoPlayer != null && exoPlayer.getPlayWhenReady()) {
+            scheduleWakeLockRefresh();
+        } else {
+            isWakeLockRefreshScheduled = false; // Stop refreshing if not playing
+        }
+    }
+
+    // Initialize the player
     private void initPlayer() {
         // Custom LoadControl for buffering configurations
         LoadControl loadControl = new DefaultLoadControl.Builder()
@@ -89,11 +152,6 @@ public class PlayerAction {
         // Acquire Wi-Fi lock to prevent stream disruption
         wifiLock.acquire();
 
-        // Acquire CPU wake lock to prevent CPU from sleeping during playback
-        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Zedio:WakeLock");
-        wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
-
         // Add event listeners for ExoPlayer
         exoPlayer.addListener(new Player.Listener() {
             @Override
@@ -114,64 +172,6 @@ public class PlayerAction {
                 Log.e(TAG, "Error Occurred: " + error.getMessage());
             }
         });
-    }
-
-    // Get formatted date for file naming
-    private String getDate() {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
-        Date date = new Date();
-        return formatter.format(date);
-    }
-
-    // Record streamed media into a file
-    public void recordMedia() throws IOException {
-        if (!isRecording) {
-            mediaRecorder = new MediaRecorder();
-            File musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
-            if (!musicDir.exists()) {
-                musicDir.mkdirs();  // Create directory if it doesn't exist
-            }
-            String filePath = musicDir + File.separator + getDate() + ".aac";
-
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);  // Adjust source if needed
-            mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
-            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
-            mediaRecorder.setOutputFile(filePath);
-
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            isRecording = true;
-
-            Log.d(TAG, "Recording started at: " + filePath);
-            Toast.makeText(context, "Recording started: " + filePath, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    // Stop recording
-    public void stopRecording() {
-        if (isRecording && mediaRecorder != null) {
-            mediaRecorder.stop();
-            mediaRecorder.release();
-            mediaRecorder = null;
-            isRecording = false;
-
-            Log.d(TAG, "Recording stopped");
-        }
-    }
-
-    // Stop media playback and release resources
-    public void stopMedia() {
-        if (wifiLock != null && wifiLock.isHeld()) {
-            wifiLock.release();
-        }
-        if (wakeLock != null && wakeLock.isHeld()) {
-            wakeLock.release();
-        }
-        if (exoPlayer != null) {
-            exoPlayer.stop();
-            exoPlayer.release();
-        }
-        stopRecording();
     }
 
     // Play media using ExoPlayer with OkHttpDataSource for streams
@@ -196,19 +196,112 @@ public class PlayerAction {
 
             // Start playback when ready
             exoPlayer.setPlayWhenReady(true);
+
+            // Acquire wake lock when playing
+            acquireWakeLock();
         }
     }
 
+    public void stopMedia() {
+        if (wifiLock != null && wifiLock.isHeld()) {
+            wifiLock.release();
+        }
+        if (exoPlayer != null) {
+            exoPlayer.stop();
+            exoPlayer.release();
+        }
+
+        // Release wake lock when stopping
+        releaseWakeLock();
+    }
+
+    // Get formatted date for file naming
+    private String getDate() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
+    // Record streamed media into a file
+    // Record streamed media into a file
+    // Record streamed media into a file
+    public synchronized void recordMedia() throws IOException {
+        if (!isRecording) {
+            File musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+            if (!musicDir.exists()) {
+                musicDir.mkdirs();  // Create directory if it doesn't exist
+            }
+            String filePath = musicDir + File.separator + getDate() + ".mp3";
+
+            // Open output stream to save audio data
+            outputStream = new FileOutputStream(filePath);
+
+            OkHttpClient okHttpClient = new OkHttpClient();
+            InputStream inputStream = Objects.requireNonNull(okHttpClient.newCall(new Request.Builder()
+                    .url(currentRadio.getRadioUrl())
+                    .build()).execute().body()
+            ).byteStream();
+
+            // Write audio data to the file in a background thread
+            new Thread(() -> {
+                try {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = inputStream.read(buffer)) != -1 && !isStoppingRecording) {
+                        synchronized (PlayerAction.this) {
+                            if (outputStream != null) {
+                                outputStream.write(buffer, 0, bytesRead);
+                            }
+                        }
+                    }
+                    synchronized (PlayerAction.this) {
+                        if (outputStream != null) {
+                            outputStream.flush();
+                            outputStream.close();
+                            outputStream = null;
+                        }
+                    }
+                    Log.d(TAG, "Recording saved to " + filePath);
+                } catch (IOException e) {
+                    Log.e(TAG, "Error writing stream to file", e);
+                }
+            }).start();
+
+            isRecording = true;
+            isStoppingRecording = false;  // Reset stopping flag
+            Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // Stop recording with proper synchronization
+    public synchronized void stopRecording() {
+        if (isRecording) {
+            try {
+                isStoppingRecording = true;  // Set flag to stop recording in the background thread
+                if (outputStream != null) {
+                    outputStream.flush();  // Ensure any buffered data is written
+                    outputStream.close();  // Close the file
+                    outputStream = null;   // Set to null to avoid further operations on the file
+                }
+                isRecording = false;
+                Log.d(TAG, "Recording stopped");
+            } catch (IOException e) {
+                Log.e(TAG, "Error stopping recording", e);
+            }
+        }
+    }
     // Get unsafe OkHttpClient that trusts all certificates
     private OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
-            final TrustManager[] trustAllCerts = new TrustManager[]{
+            @SuppressLint("CustomX509TrustManager") final TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
+                        @SuppressLint("TrustAllX509TrustManager")
                         @Override
                         public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
                         }
 
+                        @SuppressLint("TrustAllX509TrustManager")
                         @Override
                         public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
                         }
@@ -229,6 +322,7 @@ public class PlayerAction {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
             builder.hostnameVerifier(new HostnameVerifier() {
+                @SuppressLint("BadHostnameVerifier")
                 @Override
                 public boolean verify(String hostname, SSLSession session) {
                     return true;
