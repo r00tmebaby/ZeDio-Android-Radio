@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.exoplayer2.*;
@@ -17,6 +18,7 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultAllocator;
+import com.r00tme.ZeDio.R;
 import com.r00tme.ZeDio.classes.Radio;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -210,8 +212,7 @@ public class PlayerAction {
         return formatter.format(date);
     }
 
-    // Record streamed media into a file
-    // Record streamed media into a file
+
     // Record streamed media into a file
     public synchronized void recordMedia() throws IOException {
         if (!isRecording) {
@@ -225,10 +226,16 @@ public class PlayerAction {
             outputStream = new FileOutputStream(filePath);
 
             OkHttpClient okHttpClient = new OkHttpClient();
-            InputStream inputStream = Objects.requireNonNull(okHttpClient.newCall(new Request.Builder()
-                    .url(currentRadio.getRadioUrl())
-                    .build()).execute().body()
-            ).byteStream();
+            InputStream inputStream = Objects.requireNonNull(
+                    okHttpClient.newCall(
+                            new Request.Builder()
+                            .url(currentRadio.getRadioUrl())
+                            .build()
+                            )
+                            .execute()
+                            .body()
+                    )
+                    .byteStream();
 
             // Write audio data to the file in a background thread
             new Thread(() -> {

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">ZeDio</string>
     <string name="test">Test</string>
+    <string name="this_is_a_test_of_scrolling_marquee_text">This is a test of scrolling marquee text</string>
 
     <string-array name="filter_bys">
         <item>Name</item>

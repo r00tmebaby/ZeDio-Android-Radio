@@ -1,172 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pad"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="clip_horizontal"
-    android:background="#3F51B5"
-    android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".MainActivity">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/pad"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="clip_horizontal"
+              android:background="#3F51B5"
+              android:orientation="vertical"
+              android:padding="10dp"
+              tools:context=".MainActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="5dp"
-        android:background="#3F51B5"
-        android:backgroundTint="#3F51B5"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playing_radio_layout"
-        tools:ignore="MissingConstraints">
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="5dp"
+            android:background="#3F51B5"
+            android:backgroundTint="#3F51B5"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playing_radio_layout"
+            tools:ignore="MissingConstraints">
 
         <Spinner
-            android:id="@+id/filter_by"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:foregroundTint="#03A9F4"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent" />
+                android:id="@+id/filter_by"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:foregroundTint="#03A9F4"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <SearchView
-            android:id="@+id/search_radio"
-            android:layout_width="210dp"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:alwaysDrawnWithCache="true"
-            android:animateLayoutChanges="true"
-            android:animationCache="true"
-            android:background="#FFFFFF"
-            android:backgroundTint="#3F51B5"
-            android:backgroundTintMode="add"
-            android:clickable="false"
-            android:focusable="auto"
-            android:iconifiedByDefault="false"
-            android:inputType="textAutoComplete"
-            android:queryHint="Search Here">
+        <androidx.appcompat.widget.SearchView
+                android:id="@+id/search_radio"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:alwaysDrawnWithCache="true"
+                android:animateLayoutChanges="true"
+                android:animationCache="true"
+                android:background="#FFFFFF"
+                android:backgroundTint="#3F51B5"
+                android:backgroundTintMode="add"
+                android:clickable="false"
+                android:focusable="auto"
+                android:iconifiedByDefault="false"
+                android:inputType="textAutoComplete"
+                android:queryHint="Search Here"
 
-        </SearchView>
+        />
 
         <ImageButton
-            android:id="@+id/exit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:background="#E91E63"
-            android:backgroundTintMode="screen"
-            android:contentDescription="@string/bottom_sheet_behavior"
-            android:hapticFeedbackEnabled="true"
-            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+                android:id="@+id/exit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="#E91E63"
+                android:backgroundTintMode="screen"
+                android:contentDescription="@string/bottom_sheet_behavior"
+                android:hapticFeedbackEnabled="true"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/playing_radio_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:background="#2196F3"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+            android:id="@+id/playing_radio_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="#2196F3"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp">
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
 
             <TextView
                     android:id="@+id/radio_info_data"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/roboto"
-                    android:textSize="12sp"
-                    android:textColor="#F4F4F4"
+                    android:ellipsize="marquee"
+                    android:padding="2dp"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true"
+                    android:text="@string/this_is_a_test_of_scrolling_marquee_text"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:shadowColor="#000000"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="3"
                     android:textAlignment="center"
                     android:textDirection="ltr" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/playing_name"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="2"
-                android:accessibilityLiveRegion="polite"
-                android:backgroundTintMode="multiply"
-                android:breakStrategy="high_quality"
-                android:bufferType="normal"
-                android:ellipsize="marquee"
-                android:enabled="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@string/appbar_scrolling_view_behavior"
-                android:foreground="@android:drawable/divider_horizontal_textfield"
-                android:layerType="hardware"
-                android:layoutDirection="inherit"
-                android:padding="5dp"
-                android:singleLine="true"
-                android:text="@string/test"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/cardview_light_background" />
+                    android:id="@+id/playing_name"
+                    android:layout_width="130dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_weight="3"
+                    android:shadowColor="#80000000"
+                    android:shadowDy="8"
+                    android:shadowRadius="6"
+                    android:shadowDx="4"
+                    android:accessibilityLiveRegion="polite"
+                    android:backgroundTintMode="multiply"
+                    android:breakStrategy="high_quality"
+                    android:bufferType="normal"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:ellipsize="marquee"
+                    android:enabled="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@string/appbar_scrolling_view_behavior"
+                    android:foreground="@android:drawable/divider_horizontal_textfield"
+                    android:layerType="hardware"
+                    android:layoutDirection="inherit"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:text="@string/test"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/cardview_light_background" />
 
             <ImageButton
-                android:id="@+id/start_recording"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/bottom_sheet_behavior"
-                android:focusable="true" android:padding="5dp"
-                android:clickable="true"
-                app:srcCompat="@drawable/ic_baseline_fiber_manual_record_24" />
+                    android:id="@+id/start_recording"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/bottom_sheet_behavior"
+                    android:focusable="true" android:padding="5dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/ic_baseline_fiber_manual_record_24" />
 
             <ImageButton
-                android:id="@+id/stop_playing"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/bottom_sheet_behavior"
-                android:padding="5dp"
-                app:srcCompat="@drawable/ic_baseline_stop_24" />
+                    android:id="@+id/stop_playing"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/bottom_sheet_behavior"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_baseline_stop_24" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:background="#2196F3"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playing_radio_layout">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/radio_view_layout"
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="1"
-            android:background="#6563B2"
-            android:backgroundTint="#45673AB7"
-            android:padding="5dp"
-            android:scrollbars="vertical"
-            tools:listitem="@layout/recycler_view_item">
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:background="#2196F3"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/playing_radio_layout">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/radio_view_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="1"
+                android:background="#6563B2"
+                android:backgroundTint="#45673AB7"
+                android:padding="5dp"
+                android:scrollbars="vertical"
+                tools:listitem="@layout/recycler_view_item">
 
         </androidx.recyclerview.widget.RecyclerView>
 

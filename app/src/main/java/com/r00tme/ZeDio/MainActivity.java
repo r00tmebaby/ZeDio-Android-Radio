@@ -3,9 +3,12 @@ package com.r00tme.ZeDio;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +22,7 @@ import com.r00tme.ZeDio.actions.PlayerAction;
 import com.r00tme.ZeDio.adapters.RadioAdapter;
 import com.r00tme.ZeDio.classes.Radio;
 import com.r00tme.ZeDio.parsers.ParsingHeaderData;
-
+import androidx.appcompat.widget.SearchView;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private PlayerAction player;
     private MainActivity currentActivity;
     private URL selectedRadioURL;
+
 
     public void onRequestPermissionsResult(
             int requestCode,
@@ -104,7 +108,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         TextView radioPlayingName = currentActivity.findViewById(R.id.playing_name);
-
+        currentActivity.findViewById(R.id.radio_info_data).setAnimation(
+                AnimationUtils.loadAnimation(this, R.anim.left_to_right)
+        );
         ImageButton startRecordRadio = currentActivity.findViewById(R.id.start_recording);
         ImageButton stopRadio = currentActivity.findViewById(R.id.stop_playing);
 
@@ -115,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             layout.setVisibility(View.GONE);
         });
 
+// Inside your OnClickListener:
         startRecordRadio.setOnClickListener(e -> {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_REQUEST_CODE);
@@ -122,15 +129,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (!player.isRecording()) {  // Start recording
                     try {
                         player.recordMedia();
-                        startRecordRadio.setImageResource(R.drawable.ic_baseline_stop_24);
-                        Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show();  // Make sure Toast is placed here
+                        startRecordRadio.setImageResource(R.drawable.ic_stop_record_24);
+                        radioPlayingName.setBackgroundColor(getResources().getColor(R.color.red_transparent));
+                        radioPlayingName.setTextColor(getResources().getColor(R.color.white));
+                        //Animation pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
+                        Toast.makeText(this, "Recording Started", Toast.LENGTH_SHORT).show();
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
                 } else {  // Stop recording
                     player.stopRecording();
                     startRecordRadio.setImageResource(R.drawable.ic_baseline_fiber_manual_record_24);
-                    Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show();  // Make sure Toast is placed here
+
+                    radioPlayingName.setBackgroundColor(Color.TRANSPARENT); // Remove background color
+                    radioPlayingName.setTextColor(getResources().getColor(R.color.default_text_color)); // Reset to default text color
+
+                    Toast.makeText(this, "Recording Stopped", Toast.LENGTH_SHORT).show();
                 }
             }
         });

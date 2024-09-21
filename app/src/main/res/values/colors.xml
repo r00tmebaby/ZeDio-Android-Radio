@@ -6,5 +6,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="red_transparent">#88FF0000</color> <!-- Slightly transparent red -->
+    <color name="default_text_color">#000000</color> <!-- Default text color (black or whatever your default is) -->
+    <color name="white">#FFFFFF</color> <!-- White text color -->
 </resources>
