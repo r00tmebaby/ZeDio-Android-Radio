@@ -8,8 +8,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.exoplayer2.*;
 import com.google.android.exoplayer2.audio.AudioAttributes;
@@ -18,7 +16,6 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultAllocator;
-import com.r00tme.ZeDio.R;
 import com.r00tme.ZeDio.classes.Radio;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -34,6 +31,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * Class that handles media playback and recording actions for a radio station.
+ * Manages ExoPlayer, wake lock, WiFi lock, and recording streamed audio.
+ */
 public class PlayerAction {
 
     private static final String TAG = "PlayerAction";
@@ -49,6 +50,13 @@ public class PlayerAction {
     private PowerManager.WakeLock wakeLock;
     private boolean isWakeLockRefreshScheduled = false;
 
+    /**
+     * Constructor for PlayerAction.
+     * Initializes WiFi lock, ExoPlayer, and wake lock.
+     *
+     * @param context The application context.
+     * @param radio The current radio station to play.
+     */
     public PlayerAction(Context context, Radio radio) {
         this.context = context;
         this.currentRadio = radio;
@@ -60,37 +68,47 @@ public class PlayerAction {
         initWakeLock();  // Initialize wake lock here
     }
 
-    // Initialize the wake lock
+    /**
+     * Initializes and acquires a wake lock to prevent the device from sleeping during playback.
+     */
     private void initWakeLock() {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Zedio:WakeLock");
     }
 
-    // Acquire the wake lock and schedule refresh
+    /**
+     * Acquires the wake lock and schedules refresh to prevent timeout.
+     */
     private void acquireWakeLock() {
         if (wakeLock != null && !wakeLock.isHeld()) {
-            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/); // Acquire with timeout
-            scheduleWakeLockRefresh(); // Schedule refresh
+            wakeLock.acquire(10 * 60 * 1000L); // Acquire for 10 minutes
+            scheduleWakeLockRefresh();
         }
     }
 
-    // Release the wake lock and cancel refresh
+    /**
+     * Releases the wake lock and cancels any scheduled refreshes.
+     */
     private void releaseWakeLock() {
         if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
         }
-        cancelWakeLockRefresh(); // Cancel any scheduled refreshes
+        cancelWakeLockRefresh();
     }
 
-    // Cancel the scheduled wake lock refresh
+    /**
+     * Cancels the scheduled wake lock refresh.
+     */
     private void cancelWakeLockRefresh() {
         if (isWakeLockRefreshScheduled) {
-            wakeLockHandler.removeCallbacksAndMessages(null); // Cancel refresh callbacks
+            wakeLockHandler.removeCallbacksAndMessages(null);
             isWakeLockRefreshScheduled = false;
         }
     }
 
-    // Schedule wake lock refresh to keep it active
+    /**
+     * Schedules a refresh of the wake lock to prevent timeout.
+     */
     private void scheduleWakeLockRefresh() {
         if (!isWakeLockRefreshScheduled) {
             wakeLockHandler.postDelayed(this::refreshWakeLock, WAKELOCK_REFRESH_INTERVAL);
@@ -98,23 +116,25 @@ public class PlayerAction {
         }
     }
 
-    // Refresh the wake lock
+    /**
+     * Refreshes the wake lock by releasing and re-acquiring it.
+     */
     private void refreshWakeLock() {
         if (wakeLock != null && wakeLock.isHeld()) {
             wakeLock.release();
-            wakeLock.acquire(10 * 60 * 1000L /*10 minutes*/); // Re-acquire to refresh
+            wakeLock.acquire(10 * 60 * 1000L); // Re-acquire
         }
-        // Reschedule refresh if still playing
         if (exoPlayer != null && exoPlayer.getPlayWhenReady()) {
             scheduleWakeLockRefresh();
         } else {
-            isWakeLockRefreshScheduled = false; // Stop refreshing if not playing
+            isWakeLockRefreshScheduled = false;
         }
     }
 
-    // Initialize the player
+    /**
+     * Initializes ExoPlayer with a custom load control and prepares it for media playback.
+     */
     private void initPlayer() {
-        // Custom LoadControl for buffering configurations
         LoadControl loadControl = new DefaultLoadControl.Builder()
                 .setAllocator(new DefaultAllocator(true, 4096))
                 .setBufferDurationsMs(
@@ -125,24 +145,20 @@ public class PlayerAction {
                 )
                 .build();
 
-        // Initialize ExoPlayer with custom LoadControl
         exoPlayer = new ExoPlayer.Builder(context)
                 .setLoadControl(loadControl)
                 .build();
 
-        // Configure the audio attributes for media playback
         exoPlayer.setAudioAttributes(
                 new AudioAttributes.Builder()
-                        .setContentType(com.google.android.exoplayer2.C.AUDIO_CONTENT_TYPE_MUSIC)
-                        .setUsage(com.google.android.exoplayer2.C.USAGE_MEDIA)
+                        .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
+                        .setUsage(C.USAGE_MEDIA)
                         .build(),
                 true
         );
 
-        // Acquire Wi-Fi lock to prevent stream disruption
         wifiLock.acquire();
 
-        // Add event listeners for ExoPlayer
         exoPlayer.addListener(new Player.Listener() {
             @Override
             public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
@@ -158,40 +174,39 @@ public class PlayerAction {
             }
 
             @Override
-            public void onPlayerError(@NonNull com.google.android.exoplayer2.PlaybackException error) {
+            public void onPlayerError(@NonNull PlaybackException error) {
                 Log.e(TAG, "Error Occurred: " + error.getMessage());
             }
         });
     }
 
-    // Play media using ExoPlayer with OkHttpDataSource for streams
+    /**
+     * Plays the media stream from the current radio station using ExoPlayer.
+     * Utilizes OkHttpDataSource for Icecast streams.
+     */
     public void playMedia() {
         if (exoPlayer != null) {
-            // Trust all certificates (Unsafe)
             OkHttpClient okHttpClient = getUnsafeOkHttpClient();
 
-            // Create OkHttpDataSource for Icecast streams
             DataSource.Factory dataSourceFactory = new OkHttpDataSourceFactory(
                     (Call.Factory) okHttpClient,
                     "ExoPlayer-OkHttp"
             );
 
-            // Create a MediaSource with OkHttpDataSource
             MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
                     .createMediaSource(MediaItem.fromUri(currentRadio.getRadioUrl()));
 
-            // Set media source and prepare the player
             exoPlayer.setMediaSource(mediaSource);
             exoPlayer.prepare();
-
-            // Start playback when ready
             exoPlayer.setPlayWhenReady(true);
 
-            // Acquire wake lock when playing
             acquireWakeLock();
         }
     }
 
+    /**
+     * Stops the media playback and releases the player and Wi-Fi lock.
+     */
     public void stopMedia() {
         if (wifiLock != null && wifiLock.isHeld()) {
             wifiLock.release();
@@ -200,44 +215,29 @@ public class PlayerAction {
             exoPlayer.stop();
             exoPlayer.release();
         }
-
-        // Release wake lock when stopping
         releaseWakeLock();
     }
 
-    // Get formatted date for file naming
-    private String getDate() {
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
-        Date date = new Date();
-        return formatter.format(date);
-    }
-
-
-    // Record streamed media into a file
+    /**
+     * Records the media stream from the current radio station to an MP3 file.
+     * @throws IOException If there is an error during recording.
+     */
     public synchronized void recordMedia() throws IOException {
         if (!isRecording) {
             File musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
             if (!musicDir.exists()) {
-                musicDir.mkdirs();  // Create directory if it doesn't exist
+                musicDir.mkdirs();
             }
             String filePath = musicDir + File.separator + getDate() + ".mp3";
 
-            // Open output stream to save audio data
             outputStream = new FileOutputStream(filePath);
 
             OkHttpClient okHttpClient = new OkHttpClient();
             InputStream inputStream = Objects.requireNonNull(
-                    okHttpClient.newCall(
-                            new Request.Builder()
-                            .url(currentRadio.getRadioUrl())
-                            .build()
-                            )
-                            .execute()
-                            .body()
-                    )
-                    .byteStream();
+                    okHttpClient.newCall(new Request.Builder().url(currentRadio.getRadioUrl()).build())
+                            .execute().body()
+            ).byteStream();
 
-            // Write audio data to the file in a background thread
             new Thread(() -> {
                 try {
                     byte[] buffer = new byte[1024];
@@ -263,20 +263,21 @@ public class PlayerAction {
             }).start();
 
             isRecording = true;
-            isStoppingRecording = false;  // Reset stopping flag
-            Toast.makeText(context, "Recording started", Toast.LENGTH_SHORT).show();
+            isStoppingRecording = false;
         }
     }
 
-    // Stop recording with proper synchronization
+    /**
+     * Stops recording the media stream and closes the output file.
+     */
     public synchronized void stopRecording() {
         if (isRecording) {
             try {
-                isStoppingRecording = true;  // Set flag to stop recording in the background thread
+                isStoppingRecording = true;
                 if (outputStream != null) {
-                    outputStream.flush();  // Ensure any buffered data is written
-                    outputStream.close();  // Close the file
-                    outputStream = null;   // Set to null to avoid further operations on the file
+                    outputStream.flush();
+                    outputStream.close();
+                    outputStream = null;
                 }
                 isRecording = false;
                 Log.d(TAG, "Recording stopped");
@@ -286,11 +287,15 @@ public class PlayerAction {
         }
     }
 
-    // Get unsafe OkHttpClient that trusts all certificates
+    /**
+     * Creates an OkHttpClient that trusts all certificates.
+     * This is unsafe and should not be used in production environments.
+     *
+     * @return An OkHttpClient that trusts all SSL certificates.
+     */
     private OkHttpClient getUnsafeOkHttpClient() {
         try {
-            // Create a trust manager that does not validate certificate chains
-            @SuppressLint("CustomX509TrustManager") final TrustManager[] trustAllCerts = new TrustManager[]{
+            final TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
                         @SuppressLint("TrustAllX509TrustManager")
                         @Override
@@ -309,21 +314,14 @@ public class PlayerAction {
                     }
             };
 
-            // Install the all-trusting trust manager
             final SSLContext sslContext = SSLContext.getInstance("SSL");
             sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
-            // Create a ssl socket factory with our all-trusting manager
-            final javax.net.ssl.SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
-            builder.hostnameVerifier(new HostnameVerifier() {
-                @SuppressLint("BadHostnameVerifier")
-                @Override
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }
-            });
+            builder.hostnameVerifier((hostname, session) -> true);
 
             return builder.build();
         } catch (Exception e) {
@@ -331,8 +329,23 @@ public class PlayerAction {
         }
     }
 
-    // Check if recording is active
+    /**
+     * Checks whether recording is currently active.
+     *
+     * @return True if recording is active, false otherwise.
+     */
     public boolean isRecording() {
         return isRecording;
+    }
+
+    /**
+     * Generates a timestamped filename for recording media files.
+     *
+     * @return A formatted string representing the current date and time.
+     */
+    private String getDate() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
+        Date date = new Date();
+        return formatter.format(date);
     }
 }

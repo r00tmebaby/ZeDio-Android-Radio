@@ -150,7 +150,7 @@
                     android:contentDescription="@string/bottom_sheet_behavior"
                     android:focusable="true" android:padding="5dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/ic_baseline_fiber_manual_record_24" />
+                    app:srcCompat="@drawable/ic_stop_record_24" />
 
             <ImageButton
                     android:id="@+id/stop_playing"
@@ -188,7 +188,5 @@
                 tools:listitem="@layout/recycler_view_item">
 
         </androidx.recyclerview.widget.RecyclerView>
-
     </LinearLayout>
-
 </LinearLayout>
