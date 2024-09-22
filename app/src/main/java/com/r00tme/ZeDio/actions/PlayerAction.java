@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,7 +35,7 @@ import java.util.Objects;
 
 /**
  * Class that handles media playback and recording actions for a radio station.
- * Manages ExoPlayer, wake lock, WiFi lock, and recording streamed audio.
+ * Manages ExoPlayer, wake lock, Wi-Fi lock, and recording streamed audio.
  */
 public class PlayerAction {
 
@@ -49,7 +51,8 @@ public class PlayerAction {
     private boolean isStoppingRecording = false;
     private PowerManager.WakeLock wakeLock;
     private boolean isWakeLockRefreshScheduled = false;
-
+    private final String currentRadioName; // Store the radio name
+    private final URL currentRadioURL; // Store the radio URL
     /**
      * Constructor for PlayerAction.
      * Initializes WiFi lock, ExoPlayer, and wake lock.
@@ -57,10 +60,11 @@ public class PlayerAction {
      * @param context The application context.
      * @param radio The current radio station to play.
      */
-    public PlayerAction(Context context, Radio radio) {
+    public PlayerAction(Context context, Radio radio) throws MalformedURLException {
         this.context = context;
         this.currentRadio = radio;
-
+        this.currentRadioName = radio.getRadioName();
+        this.currentRadioURL = radio.getRadioURLobj();
         WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         this.wifiLock = wm.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "ZedioLock");
 
@@ -75,7 +79,13 @@ public class PlayerAction {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Zedio:WakeLock");
     }
+    public String getCurrentRadioName() {
+        return currentRadioName;
+    }
 
+    public URL getCurrentRadioURL() {
+        return currentRadioURL;
+    }
     /**
      * Acquires the wake lock and schedules refresh to prevent timeout.
      */
@@ -115,7 +125,10 @@ public class PlayerAction {
             isWakeLockRefreshScheduled = true;
         }
     }
-
+    // Method to check if the player is currently playing media
+    public boolean isPlaying() {
+        return exoPlayer != null && exoPlayer.getPlayWhenReady() && exoPlayer.getPlaybackState() == Player.STATE_READY;
+    }
     /**
      * Refreshes the wake lock by releasing and re-acquiring it.
      */

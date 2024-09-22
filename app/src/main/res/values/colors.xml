@@ -10,4 +10,5 @@
     <color name="red_transparent">#88FF0000</color> <!-- Slightly transparent red -->
     <color name="default_text_color">#000000</color> <!-- Default text color (black or whatever your default is) -->
     <color name="white">#FFFFFF</color> <!-- White text color -->
+    <color name="app_background">#3F51B5</color>
 </resources>
