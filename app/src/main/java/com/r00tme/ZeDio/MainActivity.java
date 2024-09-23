@@ -1,5 +1,7 @@
 package com.r00tme.ZeDio;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -14,6 +16,8 @@ import android.animation.ObjectAnimator;
 import android.view.animation.BounceInterpolator;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String BEATFIND_PACKAGE_NAME = "com.beat.light";
+    private static final String BEATFIND_PLAY_STORE_LINK = "https://play.google.com/store/apps/details?id=com.beat.light&hl=en_GB";
 
     private ImageButton radioHomeButton;
     private ImageButton recordsButton;
@@ -60,12 +64,16 @@ public class MainActivity extends AppCompatActivity {
             updateButtonImagesAndAlpha(R.id.settings);  // Update button states and alpha, apply animation
         });
 
-        // Handle Google Assistant button click
-        googleAssistant.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VOICE_COMMAND);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            updateButtonImagesAndAlpha(R.id.g_assistant);  // Update button states and alpha, apply animation
+        // Handle BeatFind button click
+        findViewById(R.id.g_assistant).setOnClickListener(v -> {
+            updateButtonImagesAndAlpha(R.id.g_assistant);
+            if (isAppInstalled(BEATFIND_PACKAGE_NAME)) {
+
+                launchBeatFind();
+            } else {
+                // Show prompt to install the app
+                showInstallBeatFindPrompt();
+            }
         });
 
         // Load the default fragment (main screen) when the app starts
@@ -74,7 +82,33 @@ public class MainActivity extends AppCompatActivity {
             updateButtonImagesAndAlpha(R.id.radio_home);  // Set default selected state for radio_home
         }
     }
-
+    // Method to check if BeatFind is installed
+    private boolean isAppInstalled(String packageName) {
+        PackageManager pm = getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
+    // Method to launch BeatFind if it's installed
+    private void launchBeatFind() {
+        Intent intent = getPackageManager().getLaunchIntentForPackage(BEATFIND_PACKAGE_NAME);
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Could not open BeatFind", Toast.LENGTH_SHORT).show();
+        }
+    }
+    // Method to show prompt to install BeatFind from Google Play
+    private void showInstallBeatFindPrompt() {
+        Toast.makeText(this, "BeatFind is not installed. Redirecting to Play Store...", Toast.LENGTH_LONG).show();
+        Intent playStoreIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BEATFIND_PLAY_STORE_LINK));
+        playStoreIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(playStoreIntent);
+    }
     private void loadFragment(Fragment fragment) {
         // Replace the fragment in the fragment_container (below the top menu)
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

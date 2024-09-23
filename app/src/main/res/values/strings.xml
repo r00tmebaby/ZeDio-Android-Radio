@@ -8,6 +8,19 @@
     <string name="test1">TODO</string>
     <string name="scrolling_marquee_text">Scrolling marquee text</string>
     <string name="song_name">Song Name</string>
+    <string name="recognize_song_beatfind">Recognize Song (BeatFind)</string>
+    <string name="equalizer">Equalizer</string>
+    <string name="_60_hz">60 Hz</string>
+    <string name="_120_hz">120 Hz</string>
+    <string name="_250_hz">250 Hz</string>
+    <string name="_500_hz">500 Hz</string>
+    <string name="_1_khz">1 kHz</string>
+    <string name="_2_khz">2 kHz</string>
+    <string name="_4_khz">4 kHz</string>
+    <string name="_8_khz">8 kHz</string>
+    <string name="_16_khz">16 kHz</string>
+    <string name="bass_boost">Bass Boost</string>
+    <string name="virtualizer">Virtualizer</string>
 
     <string-array name="filter_bys">
         <item>Name</item>
