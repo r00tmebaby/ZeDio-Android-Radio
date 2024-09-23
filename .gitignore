@@ -9,3 +9,4 @@
 /app/apk/*
 /app/release/*
 /gradle/
+/ZeDio/build/

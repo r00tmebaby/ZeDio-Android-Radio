@@ -11,6 +11,7 @@ buildscript {
 }
 
 allprojects {
+    version = "0.5"
     repositories {
         google()
         mavenCentral()
@@ -19,6 +20,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
