@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.r00tme.ZeDio.R;
 import com.r00tme.ZeDio.adapters.DownloadedSongsAdapter;
+import com.r00tme.ZeDio.adapters.FolderAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,8 +26,10 @@ import java.util.List;
 public class RecordsFragment extends Fragment {
 
     private DownloadedSongsAdapter adapter;
+    private FolderAdapter folderAdapter;
     private List<File> downloadedFiles = new ArrayList<>();
     private static MediaPlayer mediaPlayer;
+    public final File recordDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + File.separator + "ZeDio");
 
     @Nullable
     @Override
@@ -36,28 +39,40 @@ public class RecordsFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.records_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new DownloadedSongsAdapter(downloadedFiles, getContext(), this::onFileClick);
-        recyclerView.setAdapter(adapter);
+        folderAdapter = new FolderAdapter(downloadedFiles, getContext(), this::onFolderClick);
+        recyclerView.setAdapter(folderAdapter);
 
-        loadDownloadedSongs();
+        loadFoldersAndSongs(null); // Load the base Music directory
 
         return view;
     }
 
-    private void loadDownloadedSongs() {
+    /**
+     * Loads folders and songs starting from the specified directory.
+     * If directory is null, starts from the root music directory.
+     */
+    private void loadFoldersAndSongs(@Nullable File directory) {
+        downloadedFiles.clear();
+
+        File baseDir;
+        if (directory == null) {
+            baseDir = new File(String.valueOf(recordDirectory));
+        } else {
+            baseDir = directory;
+        }
+
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
 
-            File musicDir = new File(String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)));
-            if (musicDir.exists() && musicDir.isDirectory()) {
-                File[] files = musicDir.listFiles();
+            if (baseDir.exists() && baseDir.isDirectory()) {
+                File[] files = baseDir.listFiles();
                 if (files != null) {
                     for (File file : files) {
                         if (!file.getName().startsWith(".")) {
                             downloadedFiles.add(file);
                         }
                     }
-                    adapter.notifyDataSetChanged();
+                    folderAdapter.notifyDataSetChanged();
                 }
             } else {
                 Toast.makeText(getContext(), "No recordings found", Toast.LENGTH_SHORT).show();
@@ -67,13 +82,21 @@ public class RecordsFragment extends Fragment {
             Toast.makeText(getContext(), "Storage permission is required to load songs", Toast.LENGTH_SHORT).show();
         }
     }
-    public static void stopMediaPlayerIfPlaying() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-            mediaPlayer.release();
-            mediaPlayer = null;
+
+    /**
+     * Handles folder clicks (opens the folder) and MP3 file clicks (plays the song).
+     */
+    private void onFolderClick(File file) {
+        if (file.isDirectory()) {
+            loadFoldersAndSongs(file);  // Navigate into the folder
+        } else if (file.isFile() && file.getName().endsWith(".mp3")) {
+            onFileClick(file);  // Play the MP3 file
         }
     }
+
+    /**
+     * Handles media file click and plays the selected file.
+     */
     private void onFileClick(File file) {
         // Stop the radio if it's playing
         if (RadioHomeFragment.player != null) {
@@ -81,19 +104,29 @@ public class RecordsFragment extends Fragment {
         }
 
         // Stop the media player if it's already playing
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-        }
+        stopMediaPlayerIfPlaying();
 
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(file.getPath());
             mediaPlayer.prepare();
             mediaPlayer.start();
+
             Toast.makeText(getContext(), "Playing: " + file.getName(), Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Error playing file: " + file.getName(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Stops the media player if it is currently playing.
+     */
+    public static void stopMediaPlayerIfPlaying() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 

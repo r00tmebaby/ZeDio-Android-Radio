@@ -17,6 +17,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultAllocator;
 import com.r00tme.ZeDio.classes.Radio;
+import com.r00tme.ZeDio.fragments.RecordsFragment;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -52,10 +53,11 @@ public class PlayerAction {
     private PowerManager.WakeLock wakeLock;
     private boolean isWakeLockRefreshScheduled = false;
     private final String currentRadioName; // Store the radio name
-    private final URL currentRadioURL; // Store the radio URL
+    private static URL currentRadioURL; // Store the radio URL
+
     /**
      * Constructor for PlayerAction.
-     * Initializes WiFi lock, ExoPlayer, and wake lock.
+     * Initializes Wi-Fi lock, ExoPlayer, and wake lock.
      *
      * @param context The application context.
      * @param radio The current radio station to play.
@@ -64,7 +66,7 @@ public class PlayerAction {
         this.context = context;
         this.currentRadio = radio;
         this.currentRadioName = radio.getRadioName();
-        this.currentRadioURL = radio.getRadioURLobj();
+        currentRadioURL = radio.getRadioURLobj();
         WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         this.wifiLock = wm.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, "ZedioLock");
 
@@ -237,7 +239,9 @@ public class PlayerAction {
      */
     public synchronized void recordMedia() throws IOException {
         if (!isRecording) {
-            File musicDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
+            RecordsFragment record = new RecordsFragment();
+            File musicDir = new File(record.recordDirectory + File.separator + currentRadio.getRadioName());
+
             if (!musicDir.exists()) {
                 musicDir.mkdirs();
             }
@@ -312,12 +316,12 @@ public class PlayerAction {
                     new X509TrustManager() {
                         @SuppressLint("TrustAllX509TrustManager")
                         @Override
-                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @SuppressLint("TrustAllX509TrustManager")
                         @Override
-                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) throws CertificateException {
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
                         }
 
                         @Override

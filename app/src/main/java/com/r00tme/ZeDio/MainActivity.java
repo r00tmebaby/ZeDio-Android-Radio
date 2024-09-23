@@ -1,4 +1,5 @@
 package com.r00tme.ZeDio;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton radioHomeButton;
     private ImageButton recordsButton;
     private ImageButton settingsButton;
-
+    private ImageButton googleAssistant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +28,12 @@ public class MainActivity extends AppCompatActivity {
         radioHomeButton = findViewById(R.id.radio_home);
         recordsButton = findViewById(R.id.records);
         settingsButton = findViewById(R.id.settings);
-
+        googleAssistant = findViewById(R.id.g_assistant);
         // Set default alpha (90% transparency)
         radioHomeButton.setAlpha(1f);
         recordsButton.setAlpha(0.4f);
         settingsButton.setAlpha(0.4f);
+        googleAssistant.setAlpha(0.4f);
 
         // Set program exit activity
         ImageButton exitButton = findViewById(R.id.exit_button);
@@ -56,6 +58,14 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(v -> {
             loadFragment(new SettingsFragment());
             updateButtonImagesAndAlpha(R.id.settings);  // Update button states and alpha, apply animation
+        });
+
+        // Handle Google Assistant button click
+        googleAssistant.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VOICE_COMMAND);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            updateButtonImagesAndAlpha(R.id.g_assistant);  // Update button states and alpha, apply animation
         });
 
         // Load the default fragment (main screen) when the app starts
@@ -100,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             settingsButton.setAlpha(0.4f);  // Set alpha to 90% for non-selected
         }
+        // Update the radio_home button image, alpha, and apply animation
+        if (selectedButtonId == R.id.g_assistant) {
+            googleAssistant.setAlpha(1.0f);  // Full opacity for selected button
+            applyBounceAnimation(googleAssistant);  // Apply bounce animation for selected button
+        } else {
+            googleAssistant.setAlpha(0.4f);  // Set alpha to 90% for non-selected
+        }
     }
 
     private void applyBounceAnimation(View button) {
@@ -128,5 +145,7 @@ public class MainActivity extends AppCompatActivity {
         recordsButton.setScaleY(1.0f);
         settingsButton.setScaleX(1.0f);
         settingsButton.setScaleY(1.0f);
+        googleAssistant.setScaleX(1.0f);
+        googleAssistant.setScaleY(1.0f);
     }
 }
