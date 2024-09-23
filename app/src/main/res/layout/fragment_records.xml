@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/pad"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_gravity="clip_horizontal"
-              android:background="#3F51B5"
               android:orientation="vertical"
               android:padding="10dp"
-              tools:context=".MainActivity">
-    <!-- Container for the RecyclerView -->
-    <LinearLayout
+              tools:context=".RecordsFragment">
+
+    <!-- RecyclerView to display the recorded songs -->
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/records_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="12dp"
-            android:padding="2dp"
             android:background="#2196F3"
-            android:orientation="horizontal">
-
-    </LinearLayout>
+            android:padding="2dp"
+            android:scrollbars="vertical"/>
 </LinearLayout>

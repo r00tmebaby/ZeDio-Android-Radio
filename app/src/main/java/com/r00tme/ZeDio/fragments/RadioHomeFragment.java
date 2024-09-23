@@ -42,7 +42,7 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
     private List<Radio> radioList = new ArrayList<>();
 
     @SuppressLint("StaticFieldLeak")
-    private static PlayerAction player; // Static to maintain state across fragments
+    static PlayerAction player; // Static to maintain state across fragments
     private static URL selectedRadioURL;
     private static String selectedRadioName;
     public TextView radioPlayingName;
@@ -149,6 +149,8 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
             public void onLongItemClick(View view, int position) throws MalformedURLException {
                 if (!radioList.isEmpty()) {
                     Radio selectedRadio = radioList.get(position);
+                    // Stop the media player if it's playing
+                    RecordsFragment.stopMediaPlayerIfPlaying();
                     player = new PlayerAction(getActivity(), selectedRadio);
                     new RequestOptions().priority(Priority.HIGH).fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL);
 
