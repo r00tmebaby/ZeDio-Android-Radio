@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,7 +31,10 @@ public class RecordsFragment extends Fragment {
     private FolderAdapter folderAdapter;
     private final List<File> downloadedFiles = new ArrayList<>();
     private static MediaPlayer mediaPlayer;
-    public final File recordDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + File.separator + "ZeDio");
+    public final File recordDirectory = Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_MUSIC + File.separator + "ZeDio"
+    );
+    private static final int STORAGE_PERMISSION_CODE = 100;
 
     @Nullable
     @Override
@@ -43,11 +47,48 @@ public class RecordsFragment extends Fragment {
         folderAdapter = new FolderAdapter(downloadedFiles, getContext(), this::onFolderClick);
         recyclerView.setAdapter(folderAdapter);
 
-        loadFoldersAndSongs(null); // Load the base Music directory
+        // Check for permission
+        if (checkStoragePermission()) {
+            loadFoldersAndSongs(null); // Load the base Music directory
+        } else {
+            requestStoragePermission(); // Request permission if not granted
+        }
 
         return view;
     }
+    // Method to check if the storage permission is granted
+    private boolean checkStoragePermission() {
+        return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED;
+    }
 
+    // Method to request storage permission
+    private void requestStoragePermission() {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            // Display an explanation to the user (why you need the permission)
+            Toast.makeText(getContext(), "Storage permission is required to load songs", Toast.LENGTH_SHORT).show();
+        }
+        // Request the permission
+        ActivityCompat.requestPermissions(
+                getActivity(),
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE
+        );
+    }
+    // Handle the result of the permission request
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            // If permission is granted, load the songs
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                loadFoldersAndSongs(null); // Load the songs if permission granted
+            } else {
+                // If permission is denied, show a message or take appropriate action
+                Toast.makeText(getContext(), "Storage permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     /**
      * Loads folders and songs starting from the specified directory.
      * If directory is null, starts from the root music directory.

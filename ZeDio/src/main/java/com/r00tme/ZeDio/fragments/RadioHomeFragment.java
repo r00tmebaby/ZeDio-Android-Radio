@@ -114,24 +114,29 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
 
         // Set start/stop recording logic
         startRecordRadio.setOnClickListener(v -> {
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            if (
+                    ActivityCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
+            ) {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_REQUEST_CODE);
             } else {
                 if (player != null && !player.isRecording()) {
                     try {
                         player.recordMedia();
-                        startRecordRadio.setImageResource(R.drawable.ic_baseline_fiber_manual_record_24);
-                        radioPlayingName.setTextColor(getResources().getColor(R.color.white));
-                        radioPlayingName.setBackgroundColor(getResources().getColor(R.color.red_transparent));
+                        //startRecordRadio.setImageResource(R.drawable.stop_grey);
+                        //startRecordRadio.setBackgroundColor(getResources().getColor(R.color.red_transparent));
+                        //radioPlayingName.setTextColor(getResources().getColor(R.color.white));
+                        //radioPlayingName.setBackgroundColor(getResources().getColor(R.color.red_transparent));
                         Toast.makeText(getContext(), "Recording Started", Toast.LENGTH_SHORT).show();
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }
                 } else if (player != null) {
                     player.stopRecording();
-                    startRecordRadio.setImageResource(R.drawable.ic_stop_record_24);
-                    radioPlayingName.setBackgroundColor(getResources().getColor(R.color.material_on_background_disabled));
-                    radioPlayingName.setTextColor(getResources().getColor(R.color.white));
+                    //startRecordRadio.setImageResource(R.drawable.record_grey);
+                    //startRecordRadio.setBackgroundColor(getResources().getColor(R.color.cardview_light_background));
+                    //radioPlayingName.setBackgroundColor(getResources().getColor(R.color.material_on_background_disabled));
+                    //radioPlayingName.setTextColor(getResources().getColor(R.color.white));
                     Toast.makeText(getContext(), "Recording Stopped", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -157,7 +162,7 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
                     selectedRadioName = selectedRadio.getRadioName();
                     selectedRadioURL = selectedRadio.getRadioURLobj();
                     radioPlayingName.setText(selectedRadioName);
-                    startRecordRadio.setImageResource(R.drawable.ic_stop_record_24);
+                    startRecordRadio.setImageResource(R.drawable.record_grey);
 
 
                     player.stopRecording();

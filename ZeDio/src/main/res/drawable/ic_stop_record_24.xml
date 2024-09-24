@@ -6,7 +6,7 @@
 
     <!-- Outer red square -->
     <path
-            android:fillColor="@android:color/holo_red_light"
+            android:fillColor="@android:color/secondary_text_dark"
             android:pathData="M6,6h12v12H6z"/>
 
 </vector>

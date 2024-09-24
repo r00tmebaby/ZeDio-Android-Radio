@@ -87,17 +87,16 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#FFFFFF"
-                    android:layout_margin="2dp"
-                    android:contentDescription="@string/recording" app:srcCompat="@drawable/ic_stop_record_24" />
+                    android:contentDescription="@string/recording"
+                    app:srcCompat="@drawable/ic_stop_record_24" />
 
             <ImageButton
                     android:id="@+id/stop_playing"
                     android:layout_width="50dp"
-                    android:background="#FFFFFF"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:contentDescription="@string/playing" app:srcCompat="@drawable/ic_stop_record_24" />
+                    android:contentDescription="@string/playing"
+                    app:srcCompat="@drawable/ic_stop_record_24" />
         </LinearLayout>
     </LinearLayout>
 
