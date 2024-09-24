@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -20,79 +19,92 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.r00tme.ZeDio.R;
 import com.r00tme.ZeDio.adapters.DownloadedSongsAdapter;
 import com.r00tme.ZeDio.adapters.FolderAdapter;
-
+import com.r00tme.ZeDio.classes.Helper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Fragment to display and manage downloaded recordings. Handles folder navigation,
+ * media file playback, and permission requests.
+ */
 public class RecordsFragment extends Fragment {
 
-    private DownloadedSongsAdapter adapter;
+    private static final Logger logger = LoggerFactory.getLogger(RecordsFragment.class);
     private FolderAdapter folderAdapter;
     private final List<File> downloadedFiles = new ArrayList<>();
     private static MediaPlayer mediaPlayer;
-    public final File recordDirectory = Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_MUSIC + File.separator + "ZeDio"
-    );
     private static final int STORAGE_PERMISSION_CODE = 100;
+    private static final int WRITE_PERMISSION_CODE = 200;
+    public final File recordDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC + File.separator + "ZeDio");
+
+    private final Helper helper = new Helper();
+    private String currentlyPlayingFilePath = null;  // Variable to store the path of the currently playing file
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_records, container, false);
 
+        // Initialize RecyclerView
         RecyclerView recyclerView = view.findViewById(R.id.records_layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        folderAdapter = new FolderAdapter(downloadedFiles, getContext(), this::onFolderClick);
+        folderAdapter = new FolderAdapter(downloadedFiles, getContext(), new FolderAdapter.OnItemClickListener() {
+            @Override
+            public void onPlayItem(File file) {
+                onFileClick(file);  // Logic to play the file
+            }
+
+            @Override
+            public void onStopPlaying(File file) {
+                stopMediaPlayerIfPlaying();  // Logic to stop playing the file
+            }
+
+            @Override
+            public void onFolderClick(File folder) {
+                if (checkStoragePermission()) {
+                    loadFoldersAndSongs(folder);  // Navigate into the folder
+                } else {
+                    requestStoragePermissions();  // Request permission if needed
+                }
+            }
+        });
         recyclerView.setAdapter(folderAdapter);
 
-        // Check for permission
-        if (checkStoragePermission()) {
-            loadFoldersAndSongs(null); // Load the base Music directory
-        } else {
-            requestStoragePermission(); // Request permission if not granted
-        }
+        // Check for storage permission and attempt to load the music folder
+        checkPermissionAndLoadFolders();
 
         return view;
     }
-    // Method to check if the storage permission is granted
-    private boolean checkStoragePermission() {
-        return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED;
+
+    private void checkPermissionAndLoadFolders() {
+        if (checkStoragePermission()) {
+            loadFoldersAndSongs(null);  // Load the base music directory
+        } else {
+            requestStoragePermissions();  // Request storage permission
+        }
     }
 
-    // Method to request storage permission
-    private void requestStoragePermission() {
-        if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            // Display an explanation to the user (why you need the permission)
-            Toast.makeText(getContext(), "Storage permission is required to load songs", Toast.LENGTH_SHORT).show();
+    private boolean checkStoragePermission() {
+        return ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestStoragePermissions() {
+        if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) || shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            helper.Toast(getContext(), getLayoutInflater(), "Storage permissions are required to load, edit, and delete songs", false, false);
         }
-        // Request the permission
+
         ActivityCompat.requestPermissions(
                 getActivity(),
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                STORAGE_PERMISSION_CODE
         );
     }
-    // Handle the result of the permission request
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == STORAGE_PERMISSION_CODE) {
-            // If permission is granted, load the songs
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                loadFoldersAndSongs(null); // Load the songs if permission granted
-            } else {
-                // If permission is denied, show a message or take appropriate action
-                Toast.makeText(getContext(), "Storage permission denied", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-    /**
-     * Loads folders and songs starting from the specified directory.
-     * If directory is null, starts from the root music directory.
-     */
     @SuppressLint("NotifyDataSetChanged")
     private void loadFoldersAndSongs(@Nullable File directory) {
         downloadedFiles.clear();
@@ -118,47 +130,54 @@ public class RecordsFragment extends Fragment {
                     folderAdapter.notifyDataSetChanged();
                 }
             } else {
-                Toast.makeText(getContext(), "No recordings found", Toast.LENGTH_SHORT).show();
+                helper.Toast(getContext(), getLayoutInflater(), "No recordings found", false, false);
             }
 
         } else {
-            Toast.makeText(getContext(), "Storage permission is required to load songs", Toast.LENGTH_SHORT).show();
+            helper.Toast(getContext(), getLayoutInflater(), "Storage permission is required to load songs", false, false);
         }
     }
 
-    /**
-     * Handles folder clicks (opens the folder) and MP3 file clicks (plays the song).
-     */
-    private void onFolderClick(File file) {
-        if (file.isDirectory()) {
-            loadFoldersAndSongs(file);  // Navigate into the folder
-        } else if (file.isFile() && file.getName().endsWith(".mp3")) {
-            onFileClick(file);  // Play the MP3 file
-        }
-    }
 
     /**
-     * Handles media file click and plays the selected file.
+     * Handles media file click and plays/stops the selected file.
+     * Ensures that only one media file is playing at a time and stops the radio if it is running.
+     *
+     * @param file The media file to play or stop.
      */
     private void onFileClick(File file) {
         // Stop the radio if it's playing
         if (RadioHomeFragment.player != null) {
-            RadioHomeFragment.player.stopMedia(); // Ensure this method is available in PlayerAction
+            RadioHomeFragment.player.stopMedia();
         }
 
-        // Stop the media player if it's already playing
-        stopMediaPlayerIfPlaying();
+        // If the clicked file is already playing, stop it
+        if (mediaPlayer != null && mediaPlayer.isPlaying() && file.getPath().equals(currentlyPlayingFilePath)) {
+            stopMediaPlayerIfPlaying();
+            currentlyPlayingFilePath = null;  // Reset the currently playing file path
+            helper.Toast(getContext(), getLayoutInflater(), "Stopped: " + file.getName(), false, false);
+            logger.info("Stopped playing file: " + file.getName());
+            return;
+        }
 
+        // Stop any currently playing file before starting a new one
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            stopMediaPlayerIfPlaying();
+        }
+
+        // Otherwise, play the selected file
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(file.getPath());
             mediaPlayer.prepare();
             mediaPlayer.start();
 
-            Toast.makeText(getContext(), "Playing: " + file.getName(), Toast.LENGTH_SHORT).show();
+            currentlyPlayingFilePath = file.getPath();  // Store the currently playing file path
+            helper.Toast(getContext(), getLayoutInflater(), "Playing: " + file.getName(), true, false);
+            logger.info("Playing file: " + file.getName());
         } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Error playing file: " + file.getName(), Toast.LENGTH_SHORT).show();
+            logger.error("Error playing file: " + file.getName(), e);
+            helper.Toast(getContext(), getLayoutInflater(), "Error playing file: " + file.getName(), false, false);
         }
     }
 
@@ -179,6 +198,19 @@ public class RecordsFragment extends Fragment {
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                helper.Toast(getContext(), getLayoutInflater(), "Permissions granted", true, false);
+                loadFoldersAndSongs(null);  // Load the base music directory
+            } else {
+                helper.Toast(getContext(), getLayoutInflater(), "Permissions denied", false, false);
+                logger.warn("Storage permissions denied by user.");
+            }
         }
     }
 }

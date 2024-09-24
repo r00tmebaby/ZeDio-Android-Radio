@@ -22,9 +22,9 @@ import com.r00tme.ZeDio.R;
 import com.r00tme.ZeDio.RecyclerItemClickListener;
 import com.r00tme.ZeDio.actions.PlayerAction;
 import com.r00tme.ZeDio.adapters.RadioAdapter;
+import com.r00tme.ZeDio.classes.Helper;
 import com.r00tme.ZeDio.classes.Radio;
 import com.r00tme.ZeDio.parsers.ParsingHeaderData;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,13 +33,22 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * Fragment to manage radio home screen including radio list, media player actions,
+ * and recording functionality. Allows filtering, searching, and managing radio playback and recording.
+ */
 public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-
+    // Logger initialization
+    private static final Logger logger = LoggerFactory.getLogger(RadioHomeFragment.class);
     private static final int RECORD_AUDIO_REQUEST_CODE = 10;
     private RadioAdapter radioAdapter;
     private String filteredBy;
     private List<Radio> radioList = new ArrayList<>();
+    Helper helper = new Helper();
 
     @SuppressLint("StaticFieldLeak")
     static PlayerAction player; // Static to maintain state across fragments
@@ -48,8 +57,50 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
     public TextView radioPlayingName;
     public TextView radioInfoText;
     public LinearLayout playingRadioLayout;
-    private ImageButton startRecordRadio;
+    private ImageButton startRecordButton;
+    private ImageButton stopRadioButton;
 
+    /**
+     * Updates the UI to reflect that the recording is in progress.
+     */
+    public void setRecordingDesign() {
+        startRecordButton.setImageResource(R.drawable.stop_grey);
+        stopRadioButton.setImageResource(R.drawable.pause_grey);
+        radioPlayingName.setTextColor(getResources().getColor(R.color.white));
+        radioPlayingName.setBackgroundColor(getResources().getColor(R.color.red_transparent));
+    }
+
+    /**
+     * Resets the recording and play buttons to their default state.
+     */
+    public void resetButtonsDesign() {
+        startRecordButton.setImageResource(R.drawable.record_grey);
+        stopRadioButton.setImageResource(R.drawable.play_grey);
+        radioPlayingName.setTextColor(getResources().getColor(R.color.white));
+        radioPlayingName.setBackgroundColor(getResources().getColor(R.color.material_on_background_disabled));
+    }
+
+    /**
+     * Updates the UI to show that the radio is playing.
+     */
+    public void setPlayRadioButtons() {
+        radioPlayingName.setText(selectedRadioName);
+        stopRadioButton.setImageResource(R.drawable.pause_grey);  // Change button to pause icon
+        radioPlayingName.setTextColor(getResources().getColor(R.color.white));  // Update UI to indicate playing state
+        updateRadioMetaText();  // Update metadata display
+    }
+
+    /**
+     * Updates the UI to reflect that the radio is paused.
+     */
+    @SuppressLint("SetTextI18n")
+    public void setPausePlayRadioButtons() {
+        stopRadioButton.setImageResource(R.drawable.play_grey);  // Change button to play icon
+        radioPlayingName.setTextColor(getResources().getColor(R.color.material_on_background_disabled));  // Update UI to indicate paused state
+        radioInfoText.setText("Radio paused");
+    }
+
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_radio_home, container, false);
@@ -66,15 +117,15 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
         spinner.setAdapter(filterAdapter);
         spinner.setOnItemSelectedListener(this);
 
-        // Fetch and Set Radio List
+        // Fetch and set the radio list
         try {
             radioAdapter = new RadioAdapter(fetchAllRadios(), getContext());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error fetching radio list", e);
         }
         recyclerView.setAdapter(radioAdapter);
 
-        // Set Up Search View
+        // Set up the search view
         SearchView searchView = view.findViewById(R.id.search_radio);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -90,54 +141,74 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
             }
         });
 
-        // Initialize Media Player and Recording Button
-        startRecordRadio = view.findViewById(R.id.start_recording);
-        ImageButton stopRadio = view.findViewById(R.id.stop_playing);
+        // Initialize media player and recording button
+        startRecordButton = view.findViewById(R.id.start_recording);
+        stopRadioButton = view.findViewById(R.id.stop_playing);
         playingRadioLayout = view.findViewById(R.id.playing_radio_layout);
         radioPlayingName = view.findViewById(R.id.playing_name);
         radioInfoText = view.findViewById(R.id.radio_info_data);
 
+        if (player != null && player.isPlaying()) {
+            //helper.Toast(getContext(), getLayoutInflater(), "Radio is playing", true, false);
+            setPlayRadioButtons();
+        } else {
+            setPausePlayRadioButtons();
+        }
+
         // Set animations for text scrolling
         radioInfoText.setAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.left_to_right));
 
+        updateRadioMetaText();  // Update UI with current track info
 
-        updateTextView();  // Update UI with current track info
-
-
-        // Set stop radio and recording logic
-        stopRadio.setOnClickListener(v -> {
+        // Set stop radio and recording logic (play/pause toggle)
+        stopRadioButton.setOnClickListener(v -> {
             if (player != null) {
-                player.stopMedia();
-                player.stopRecording();
+                if (player.isPlaying()) {
+                    // If the radio is playing, pause it
+                    player.pauseMedia();
+                    setPausePlayRadioButtons();
+
+                    // Stop recording if it's ongoing
+                    if (player.isRecording()) {
+                        player.stopRecording();
+                        helper.Toast(getContext(), getLayoutInflater(), "Recording stopped due to radio pause!", false, false);
+                        resetButtonsDesign();  // Reset the button icons
+                    }
+                } else {
+                    // If the radio is paused, resume it
+                    player.resumeMedia();
+                    setPlayRadioButtons();
+                }
+            } else {
+                helper.Toast(getContext(), getLayoutInflater(), "No radio selected! Hold over radio card to play radio", false, false);
             }
         });
 
         // Set start/stop recording logic
-        startRecordRadio.setOnClickListener(v -> {
-            if (
-                    ActivityCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_REQUEST_CODE);
+        startRecordButton.setOnClickListener(v -> {
+            if (ActivityCompat.checkSelfPermission(Objects.requireNonNull(getContext()),
+                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(Objects.requireNonNull(getActivity()), new String[]{Manifest.permission.RECORD_AUDIO}, RECORD_AUDIO_REQUEST_CODE);
             } else {
-                if (player != null && !player.isRecording()) {
-                    try {
-                        player.recordMedia();
-                        //startRecordRadio.setImageResource(R.drawable.stop_grey);
-                        //startRecordRadio.setBackgroundColor(getResources().getColor(R.color.red_transparent));
-                        //radioPlayingName.setTextColor(getResources().getColor(R.color.white));
-                        //radioPlayingName.setBackgroundColor(getResources().getColor(R.color.red_transparent));
-                        Toast.makeText(getContext(), "Recording Started", Toast.LENGTH_SHORT).show();
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
+                if (player != null && player.isPlaying()) {
+                    // Only allow recording if the radio is playing
+                    if (!player.isRecording()) {
+                        try {
+                            player.recordMedia();
+                            setRecordingDesign();
+                            helper.Toast(getContext(), getLayoutInflater(), "Recording Started", true, false);
+                        } catch (IOException ioException) {
+                            logger.error("Error recording", ioException);
+                        }
+                    } else {
+                        // Stop recording if already ongoing
+                        player.stopRecording();
+                        resetButtonsDesign();
+                        helper.Toast(getContext(), getLayoutInflater(), "Recording Stopped", true, false);
                     }
-                } else if (player != null) {
-                    player.stopRecording();
-                    //startRecordRadio.setImageResource(R.drawable.record_grey);
-                    //startRecordRadio.setBackgroundColor(getResources().getColor(R.color.cardview_light_background));
-                    //radioPlayingName.setBackgroundColor(getResources().getColor(R.color.material_on_background_disabled));
-                    //radioPlayingName.setTextColor(getResources().getColor(R.color.white));
-                    Toast.makeText(getContext(), "Recording Stopped", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Show a message if the radio isn't playing
+                    helper.Toast(getContext(), getLayoutInflater(), "Recording can only start when the radio is playing!", false, false);
                 }
             }
         });
@@ -156,18 +227,15 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
                     Radio selectedRadio = radioList.get(position);
                     // Stop the media player if it's playing
                     RecordsFragment.stopMediaPlayerIfPlaying();
-                    player = new PlayerAction(getActivity(), selectedRadio);
+                    player = new PlayerAction(Objects.requireNonNull(getActivity()), selectedRadio);
                     new RequestOptions().priority(Priority.HIGH).fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL);
 
                     selectedRadioName = selectedRadio.getRadioName();
                     selectedRadioURL = selectedRadio.getRadioURLobj();
-                    radioPlayingName.setText(selectedRadioName);
-                    startRecordRadio.setImageResource(R.drawable.record_grey);
-
 
                     player.stopRecording();
                     player.playMedia();
-                    updateTextView();
+                    setPlayRadioButtons();
                 }
             }
         }));
@@ -175,7 +243,12 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
         return view;
     }
 
-    // Fetch the list of radios
+    /**
+     * Fetches the list of radios from a remote URL.
+     *
+     * @return A list of Radio objects.
+     * @throws IOException If an input or output error occurs.
+     */
     private ArrayList<Radio> fetchAllRadios() throws IOException {
         ArrayList<Radio> radioList = new ArrayList<>();
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
@@ -200,29 +273,27 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
         return radioList;
     }
 
-    // Updates the currently playing track information.
+    /**
+     * Updates the metadata text for the currently playing radio.
+     */
     @SuppressLint("SetTextI18n")
-    private void updateTextView() {
-        new Thread(() -> {
-            requireActivity().runOnUiThread(() -> {
-                ParsingHeaderData streaming = new ParsingHeaderData();
-                ParsingHeaderData.TrackData trackData = streaming.getTrackDetails(selectedRadioURL);
-                radioPlayingName.setText(selectedRadioName);
+    private void updateRadioMetaText() {
+        if (player != null) {
+            new Thread(() -> {
+                requireActivity().runOnUiThread(() -> {
+                    ParsingHeaderData streaming = new ParsingHeaderData();
+                    ParsingHeaderData.TrackData trackData = streaming.getTrackDetails(selectedRadioURL);
 
+                    String displayInfo = "- No track information -";
 
-                radioPlayingName.setBackgroundColor(getResources().getColor(R.color.material_on_background_disabled));
-                String displayInfo = "- No track information -";
-                radioInfoText.setBackgroundColor(getResources().getColor(R.color.material_on_surface_stroke));
-
-                if (!trackData.artist.trim().isEmpty()) {
-                    displayInfo = trackData.artist + " - " + trackData.title;
-                }
-                radioInfoText.setText(displayInfo);
-            });
-
-    }).start();
+                    if (!trackData.artist.trim().isEmpty()) {
+                        displayInfo = trackData.artist + " - " + trackData.title;
+                    }
+                    radioInfoText.setText(displayInfo);
+                });
+            }).start();
+        }
     }
-
 
     // Handle the dropdown spinner selection for filtering
     @Override

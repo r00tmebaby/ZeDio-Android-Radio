@@ -194,7 +194,25 @@ public class PlayerAction {
             }
         });
     }
+    /**
+     * Pauses the media playback instead of fully stopping and releasing the player.
+     */
+    public void pauseMedia() {
+        if (exoPlayer != null) {
+            exoPlayer.setPlayWhenReady(false);  // Pause playback
+        }
+        releaseWakeLock();
+    }
 
+    /**
+     * Resumes media playback if the player is paused.
+     */
+    public void resumeMedia() {
+        if (exoPlayer != null) {
+            exoPlayer.setPlayWhenReady(true);  // Resume playback
+            acquireWakeLock();  // Ensure wake lock is acquired again
+        }
+    }
     /**
      * Plays the media stream from the current radio station using ExoPlayer.
      * Utilizes OkHttpDataSource for Icecast streams.
@@ -251,8 +269,13 @@ public class PlayerAction {
 
             OkHttpClient okHttpClient = new OkHttpClient();
             InputStream inputStream = Objects.requireNonNull(
-                    okHttpClient.newCall(new Request.Builder().url(currentRadio.getRadioUrl()).build())
-                            .execute().body()
+                    okHttpClient.newCall(
+                            new Request.Builder()
+                                    .url(currentRadio.getRadioUrl())
+                                    .build()
+                            )
+                            .execute()
+                            .body()
             ).byteStream();
 
             new Thread(() -> {
@@ -312,7 +335,7 @@ public class PlayerAction {
      */
     private OkHttpClient getUnsafeOkHttpClient() {
         try {
-            final TrustManager[] trustAllCerts = new TrustManager[]{
+            @SuppressLint("CustomX509TrustManager") final TrustManager[] trustAllCerts = new TrustManager[]{
                     new X509TrustManager() {
                         @SuppressLint("TrustAllX509TrustManager")
                         @Override

@@ -20,5 +20,17 @@
             android:textColor="#000"
             android:textSize="16sp"
             android:paddingStart="16dp" />
+    <!-- Edit Button -->
+    <ImageView
+            android:id="@+id/edit_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/edit" />
+
+    <ImageView
+            android:id="@+id/delete_button"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/delete" />
 
 </LinearLayout>

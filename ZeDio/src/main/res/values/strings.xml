@@ -23,6 +23,8 @@
     <string name="virtualizer">Virtualizer</string>
     <string name="playing">Playing</string>
     <string name="recording">Recording</string>
+    <string name="this_is_a_custom_toast">This is a custom Toast</string>
+    <string name="custom_toast"/>
 
     <string-array name="filter_bys">
         <item>Name</item>

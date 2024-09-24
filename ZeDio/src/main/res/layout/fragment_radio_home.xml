@@ -72,31 +72,36 @@
                 android:layout_height="match_parent">
             <TextView
                     android:id="@+id/playing_name"
-                    android:layout_width="130dp"
+                    android:layout_width="280dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="5dp"
-                    android:padding="5dp"
+                    android:layout_margin="1dp"
+                    android:padding="2dp"
+                    android:textColorLink="#FFFFFF"
                     android:background="@color/material_on_background_disabled"
-                    android:layout_weight="3"
+                    android:layout_marginEnd="2dp"
                     android:text=""
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@color/cardview_light_background" />
+                    android:textColor="#FFFFFF" />
 
             <ImageButton
                     android:id="@+id/start_recording"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:background="@color/cardview_shadow_start_color"
                     android:layout_weight="1"
+                    android:layout_margin="2dp"
                     android:contentDescription="@string/recording"
-                    app:srcCompat="@drawable/ic_stop_record_24" />
+                    app:srcCompat="@drawable/stop_grey" />
 
             <ImageButton
                     android:id="@+id/stop_playing"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
+                    android:background="@color/cardview_shadow_start_color"
                     android:contentDescription="@string/playing"
-                    app:srcCompat="@drawable/ic_stop_record_24" />
+                    app:srcCompat="@drawable/play_grey" />
         </LinearLayout>
     </LinearLayout>
 
