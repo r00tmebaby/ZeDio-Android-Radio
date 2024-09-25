@@ -1,4 +1,4 @@
-package com.r00tme.ZeDio.parsers;
+package com.r00tme.ZeDio.utils;
 
 import android.text.TextUtils;
 

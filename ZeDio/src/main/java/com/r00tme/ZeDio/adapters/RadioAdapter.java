@@ -17,7 +17,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.r00tme.ZeDio.R;
-import com.r00tme.ZeDio.classes.Radio;
+import com.r00tme.ZeDio.utils.Radio;
 
 import java.util.ArrayList;
 import java.util.List;

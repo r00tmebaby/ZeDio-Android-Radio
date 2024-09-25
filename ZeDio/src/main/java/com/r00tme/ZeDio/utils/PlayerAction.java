@@ -1,9 +1,8 @@
-package com.r00tme.ZeDio.actions;
+package com.r00tme.ZeDio.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiManager;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
@@ -16,7 +15,6 @@ import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultAllocator;
-import com.r00tme.ZeDio.classes.Radio;
 import com.r00tme.ZeDio.fragments.RecordsFragment;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.r00tme.ZeDio.R;
 import com.r00tme.ZeDio.adapters.FolderAdapter;
-import com.r00tme.ZeDio.classes.Helper;
+import com.r00tme.ZeDio.utils.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.File;

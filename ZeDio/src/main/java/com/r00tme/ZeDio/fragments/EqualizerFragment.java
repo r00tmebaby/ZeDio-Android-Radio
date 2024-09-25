@@ -11,8 +11,8 @@ import android.widget.SeekBar;
 import androidx.fragment.app.Fragment;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.r00tme.ZeDio.R;
-import com.r00tme.ZeDio.actions.PlayerAction;
-import com.r00tme.ZeDio.classes.Helper;
+import com.r00tme.ZeDio.utils.PlayerAction;
+import com.r00tme.ZeDio.utils.Helper;
 import org.jetbrains.annotations.NotNull;
 
 public class EqualizerFragment extends Fragment {

@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.r00tme.ZeDio.fragments.RadioHomeFragment;
 import com.r00tme.ZeDio.fragments.RecordsFragment;
 import com.r00tme.ZeDio.fragments.SettingsFragment;
-import com.r00tme.ZeDio.classes.Helper;
+import com.r00tme.ZeDio.utils.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

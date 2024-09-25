@@ -1,4 +1,4 @@
-package com.r00tme.ZeDio.classes;
+package com.r00tme.ZeDio.utils;
 
 import android.content.Context;
 import android.view.Gravity;
