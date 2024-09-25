@@ -3,6 +3,10 @@
             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
             android:background="@color/app_background"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/btnBack"
             android:padding="10dp">
 
     <LinearLayout
@@ -27,10 +31,9 @@
         <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
+                android:layout_height="200sp">
 
-                android:layout_height="wrap_content">
-
-            <!-- Equalizer Band 1 (60 Hz) -->
+            <!-- Equalizer Band 1 (30-120 Hz) -->
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -38,20 +41,18 @@
 
                 <SeekBar
                         android:id="@+id/equalizer_band_1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:min="-100"
-                        android:max="100"
                         android:rotation="270"/>
                 <TextView
-                        android:text="@string/_60_hz"
+                        android:text="@string/_120_hz"
                         android:textSize="10sp"
                         android:layout_marginStart="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" tools:ignore="SmallSp"/>
             </LinearLayout>
 
-            <!-- Equalizer Band 2 (120 Hz) -->
+            <!-- Equalizer Band 2 (120-460 Hz) -->
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="wrap_content"
@@ -63,7 +64,7 @@
                         android:max="1000"
                         android:rotation="270" />
                 <TextView
-                        android:text="@string/_120_hz"
+                        android:text="460 hz"
                         android:textSize="10sp"
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
@@ -73,7 +74,6 @@
             <!-- Equalizer Band 3 (250 Hz) -->
             <LinearLayout
                     android:orientation="vertical"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <SeekBar
@@ -83,7 +83,7 @@
                         android:max="1000"
                         android:rotation="270" />
                 <TextView
-                        android:text="@string/_250_hz"
+                        android:text="1.8 khz"
                         android:textSize="10sp"
                         android:layout_marginStart="4dp"
                         android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                         android:max="1000"
                         android:rotation="270" />
                 <TextView
-                        android:text="@string/_500_hz"
+                        android:text="4.5 khz"
                         android:textSize="10sp"
                         android:layout_marginStart="5dp"
                         android:layout_width="wrap_content"
@@ -121,63 +121,6 @@
                         android:max="1000"
                         android:rotation="270" />
                 <TextView
-                        android:text="@string/_1_khz"
-                        android:textSize="10sp"
-                        android:layout_marginStart="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:ignore="SmallSp"/>
-            </LinearLayout>
-
-            <!-- Equalizer Band 6 (2 kHz) -->
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <SeekBar
-                        android:id="@+id/equalizer_band_6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
-                        android:max="1000"
-                        android:rotation="270" />
-                <TextView
-                        android:text="@string/_2_khz"
-                        android:textSize="10sp"
-                        android:layout_marginStart="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:ignore="SmallSp"/>
-            </LinearLayout>
-
-            <!-- Equalizer Band 7 (4 kHz) -->
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <SeekBar
-                        android:id="@+id/equalizer_band_7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
-                        android:max="1000"
-                        android:rotation="270" />
-                <TextView
-                        android:text="@string/_4_khz"
-                        android:textSize="10sp"
-                        android:layout_marginStart="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:ignore="SmallSp"/>
-            </LinearLayout>
-
-            <!-- Equalizer Band 8 (8 kHz) -->
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <SeekBar
-                        android:id="@+id/equalizer_band_8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
-                        android:max="1000"
-                        android:rotation="270" />
-                <TextView
                         android:text="@string/_8_khz"
                         android:textSize="10sp"
                         android:layout_marginStart="8dp"
@@ -185,24 +128,6 @@
                         android:layout_height="wrap_content" tools:ignore="SmallSp"/>
             </LinearLayout>
 
-            <!-- Equalizer Band 9 (16 kHz) -->
-            <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                <SeekBar
-                        android:id="@+id/equalizer_band_9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="150dp"
-                        android:max="30"
-                        android:rotation="270"/>
-                <TextView
-                        android:text="@string/_16_khz"
-                        android:textSize="10sp"
-                        android:layout_marginStart="8dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" tools:ignore="SmallSp"/>
-            </LinearLayout>
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"

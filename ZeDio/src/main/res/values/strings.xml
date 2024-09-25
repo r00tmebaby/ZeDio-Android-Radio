@@ -27,6 +27,7 @@
     <string name="custom_toast"/>
     <string name="file_name">File Name</string>
     <string name="folder_name">Folder Name</string>
+    <string name="_460_hz"/>
 
     <string-array name="filter_bys">
         <item>Name</item>

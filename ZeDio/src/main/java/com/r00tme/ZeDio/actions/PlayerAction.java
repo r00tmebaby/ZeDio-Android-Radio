@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
@@ -46,7 +45,7 @@ public class PlayerAction {
     private final Radio currentRadio;
     private final WifiManager.WifiLock wifiLock;
     private final Handler wakeLockHandler = new Handler(Looper.getMainLooper());
-    private ExoPlayer exoPlayer;
+    private static ExoPlayer exoPlayer;
     private FileOutputStream outputStream;
     private boolean isRecording = false;
     private boolean isStoppingRecording = false;
@@ -74,6 +73,14 @@ public class PlayerAction {
         initWakeLock();  // Initialize wake lock here
     }
 
+    public static URL getCurrentRadioURL() {
+        return currentRadioURL;
+    }
+
+    public static void setCurrentRadioURL(URL currentRadioURL) {
+        PlayerAction.currentRadioURL = currentRadioURL;
+    }
+
     /**
      * Initializes and acquires a wake lock to prevent the device from sleeping during playback.
      */
@@ -81,13 +88,7 @@ public class PlayerAction {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "Zedio:WakeLock");
     }
-    public String getCurrentRadioName() {
-        return currentRadioName;
-    }
 
-    public URL getCurrentRadioURL() {
-        return currentRadioURL;
-    }
     /**
      * Acquires the wake lock and schedules refresh to prevent timeout.
      */
@@ -96,6 +97,10 @@ public class PlayerAction {
             wakeLock.acquire(10 * 60 * 1000L); // Acquire for 10 minutes
             scheduleWakeLockRefresh();
         }
+    }
+
+    public static ExoPlayer getPlayer(){
+        return exoPlayer;
     }
 
     /**
@@ -387,5 +392,9 @@ public class PlayerAction {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
         Date date = new Date();
         return formatter.format(date);
+    }
+
+    public String getCurrentRadioName() {
+        return currentRadioName;
     }
 }
