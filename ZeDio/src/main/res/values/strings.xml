@@ -25,6 +25,8 @@
     <string name="recording">Recording</string>
     <string name="this_is_a_custom_toast">This is a custom Toast</string>
     <string name="custom_toast"/>
+    <string name="file_name">File Name</string>
+    <string name="folder_name">Folder Name</string>
 
     <string-array name="filter_bys">
         <item>Name</item>

@@ -85,19 +85,8 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
 
         // Handle delete button
         holder.deleteButton.setOnClickListener(v -> {
-            if (file.isFile()) {
-                if (file.delete()) {
-                    files.remove(position);
-                    notifyItemRemoved(position);
-                    Toast.makeText(context, "File deleted", Toast.LENGTH_SHORT).show();
-                    logger.info("File deleted successfully: {}", file.getName());
-                } else {
-                    Toast.makeText(context, "Failed to delete file", Toast.LENGTH_SHORT).show();
-                    logger.error("Failed to delete file: {}", file.getName());
-                }
-            } else if (file.isDirectory()) {
-                deleteDirectory(file, position);
-            }
+
+            showDeleteConfirmationDialog(file, position); // Show confirmation dialog before deleting
         });
 
         // Handle item clicks to play or stop
@@ -117,7 +106,42 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
             notifyDataSetChanged();  // Refresh the icons for all items
         });
     }
+    /**
+     * Shows a confirmation dialog before deleting a file or folder.
+     *
+     * @param file The file or folder to delete.
+     * @param position The position in the list of files.
+     */
+    private void showDeleteConfirmationDialog(File file, int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you want to delete " + file.getName() + "?");
 
+        builder.setPositiveButton("Ok", (dialog, which) -> {
+            // Perform deletion if user confirms
+            if (file.isFile()) {
+                if (file.delete()) {
+                    files.remove(position);
+                    notifyItemRemoved(position);
+                    Toast.makeText(context, "File deleted", Toast.LENGTH_SHORT).show();
+                    logger.info("File deleted successfully: {}", file.getName());
+                } else {
+                    Toast.makeText(context, "Failed to delete file", Toast.LENGTH_SHORT).show();
+                    logger.error("Failed to delete file: {}", file.getName());
+                }
+            } else if (file.isDirectory()) {
+                deleteDirectory(file, position);  // Call deleteDirectory method to handle folder deletion
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            // User cancelled the dialog, no action needed
+            dialog.cancel();
+            logger.info("Delete operation cancelled for file: {}", file.getName());
+        });
+
+        builder.show();
+    }
     @Override
     public int getItemCount() {
         return files.size();
@@ -157,6 +181,7 @@ public class FolderAdapter extends RecyclerView.Adapter<FolderAdapter.ViewHolder
      * @param fileNameView The TextView displaying the current name.
      */
     private void showEditDialog(File file, TextView fileNameView) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Edit File/Folder Name");
 

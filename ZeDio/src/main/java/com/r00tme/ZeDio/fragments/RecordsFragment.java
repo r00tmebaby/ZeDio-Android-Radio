@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.r00tme.ZeDio.R;
-import com.r00tme.ZeDio.adapters.DownloadedSongsAdapter;
 import com.r00tme.ZeDio.adapters.FolderAdapter;
 import com.r00tme.ZeDio.classes.Helper;
 import org.slf4j.Logger;
@@ -98,11 +97,14 @@ public class RecordsFragment extends Fragment {
             helper.Toast(getContext(), getLayoutInflater(), "Storage permissions are required to load, edit, and delete songs", false, false);
         }
 
-        ActivityCompat.requestPermissions(
-                getActivity(),
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                STORAGE_PERMISSION_CODE
-        );
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    getActivity(),
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    WRITE_PERMISSION_CODE
+            );
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -156,7 +158,7 @@ public class RecordsFragment extends Fragment {
             stopMediaPlayerIfPlaying();
             currentlyPlayingFilePath = null;  // Reset the currently playing file path
             helper.Toast(getContext(), getLayoutInflater(), "Stopped: " + file.getName(), false, false);
-            logger.info("Stopped playing file: " + file.getName());
+            logger.info("Stopped playing file: {}", file.getName());
             return;
         }
 
@@ -174,9 +176,9 @@ public class RecordsFragment extends Fragment {
 
             currentlyPlayingFilePath = file.getPath();  // Store the currently playing file path
             helper.Toast(getContext(), getLayoutInflater(), "Playing: " + file.getName(), true, false);
-            logger.info("Playing file: " + file.getName());
+            logger.info("Playing file: {}", file.getName());
         } catch (Exception e) {
-            logger.error("Error playing file: " + file.getName(), e);
+            logger.error("Error playing file: {}", file.getName(), e);
             helper.Toast(getContext(), getLayoutInflater(), "Error playing file: " + file.getName(), false, false);
         }
     }
@@ -191,7 +193,12 @@ public class RecordsFragment extends Fragment {
             mediaPlayer = null;
         }
     }
-
+    // Reload all files after an operation to ensure the list is up to date
+    @SuppressLint("NotifyDataSetChanged")
+    private void reloadFiles() {
+        loadFoldersAndSongs(null); // Reload the base directory
+        folderAdapter.notifyDataSetChanged(); // Refresh UI
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

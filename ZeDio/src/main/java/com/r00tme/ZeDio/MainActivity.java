@@ -86,11 +86,11 @@ public class MainActivity extends AppCompatActivity {
             updateButtonImagesAndAlpha(R.id.records);
         });
 
-        // Settings button click
-        settingsButton.setOnClickListener(v -> {
-            loadFragment(new SettingsFragment());
-            updateButtonImagesAndAlpha(R.id.settings);
-        });
+        //// Settings button click
+        //settingsButton.setOnClickListener(v -> {
+        //    loadFragment(new SettingsFragment());
+        //    updateButtonImagesAndAlpha(R.id.settings);
+        //});
 
         // BeatFind button click
         googleAssistant.setOnClickListener(v -> {

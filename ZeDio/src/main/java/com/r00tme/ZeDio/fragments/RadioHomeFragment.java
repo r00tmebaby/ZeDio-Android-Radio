@@ -87,6 +87,7 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
         radioPlayingName.setText(selectedRadioName);
         stopRadioButton.setImageResource(R.drawable.pause_grey);  // Change button to pause icon
         radioPlayingName.setTextColor(getResources().getColor(R.color.white));  // Update UI to indicate playing state
+        startRecordButton.setImageResource(R.drawable.record_grey);
         updateRadioMetaText();  // Update metadata display
     }
 
