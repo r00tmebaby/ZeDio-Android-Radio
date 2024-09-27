@@ -30,8 +30,11 @@
         </td>
     </tr>
     <tr>
-        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/media/main.jpg" /></td>
-        <td><img src="https://i.gyazo.com/182945ea9be8deeb1d52bb08370c1d11.png" /></td>
-        <td><img src="https://i.gyazo.com/182945ea9be8deeb1d52bb08370c1d11.png" /></td>
+        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/main.jpg"  alt=""/></td>
+        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/recording.jpg" /></td>
+        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/record-playing.jpg" /></td>
+        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/recordings-browser.jpg" /></td>
+        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/settings-buffering.jpg" /></td>
+        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/settings-equalizer.jpg" /></td>
     </tr>
 </table>
