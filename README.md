@@ -12,12 +12,12 @@
 
 <table style="border:0 !important">
     <tr>
-        <td colspan="4" style="text-align: center">
+        <td colspan="6" style="text-align: center">
             <a href="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/apk">ZeDio v0.5</a>
         </td>
     </tr>
     <tr>
-        <td colspan="4">
+        <td colspan="6">
             <ul>
                 <li>Improved UI</li>
                 <li>Radio Recording</li>
