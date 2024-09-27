@@ -20,7 +20,7 @@ android {
 
 
     applicationVariants.configureEach { variant ->
-        variant.outputs.all { output ->
+        variant.outputs.configureEach { output ->
             def versionName = project.version ?: "1.0" // Fallback if version is not set
             def apkName = "ZeDio-${versionName}.apk"
 
