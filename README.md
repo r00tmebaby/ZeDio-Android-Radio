@@ -7,8 +7,7 @@
 <p>
     <a href="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/apk"><b>ZeDio v0.5.apk</b></a>
 </p>
-
-[![ZeDio Video](https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/main.jpg](https://www.youtube.com/watch?v=FylPgpKX3VU)
+[![ZeDio Video](https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/media/main.jpg)](https://www.youtube.com/watch?v=FylPgpKX3VU)
 
 <table style="border:0 !important">
     <tr>
