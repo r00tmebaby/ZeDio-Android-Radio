@@ -5,10 +5,10 @@
 <p>It has a simple but friendly user interface and uses a combination of the built-in media player and ExoPlayer asynchronously to play radio stations. Record and search options are just some good additions that make the app more useful.</p>
 
 <p>
-    <a href="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/apk"><b>ZeDio v0.5</b></a>
+    <a href="https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/apk"><b>ZeDio v0.5.apk</b></a>
 </p>
 
-[![ZeDio Video](https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/media/main.jpg)](https://www.youtube.com/watch?v=FylPgpKX3VU)
+[![ZeDio Video]([https://github.com/r00tmebaby/ZeDio-Android-Radio/tree/master/media/main.jpg](https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/main.jpg))](https://www.youtube.com/watch?v=FylPgpKX3VU)
 
 <table style="border:0 !important">
     <tr>
