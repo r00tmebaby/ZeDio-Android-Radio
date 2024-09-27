@@ -41,7 +41,7 @@ public class EqualizerFragment extends Fragment {
             bassBoost = new BassBoost(0, exoPlayer.getAudioSessionId());
             bassBoost.setEnabled(true);
 
-            // Initialize Virtualizer
+            // Initialize Virtualized
             virtualizer = new Virtualizer(0, exoPlayer.getAudioSessionId());
             virtualizer.setEnabled(true);
 

@@ -19,12 +19,30 @@ android {
     }
 
 
-    // Set custom APK name without the build variant (e.g., debug/release)
     applicationVariants.configureEach { variant ->
-        variant.outputs.configureEach { output ->
+        variant.outputs.all { output ->
             def versionName = project.version ?: "1.0" // Fallback if version is not set
             def apkName = "ZeDio-${versionName}.apk"
-            outputFileName = apkName
+
+            // Set the output file name (relative path, so no absolute path errors)
+            output.outputFileName = apkName
+
+            // Copy APK to the desired directory after the build
+            tasks.configureEach { task ->
+                if (task.name == "assemble${variant.name.capitalize()}") {
+                    task.doLast {
+                        def destDir = new File("${rootProject.projectDir}/apk/")
+                        if (!destDir.exists()) {
+                            destDir.mkdirs()
+                        }
+                        copy {
+                            from(output.outputFile)
+                            into(destDir)
+                            rename { apkName }
+                        }
+                    }
+                }
+            }
         }
     }
     buildTypes {
@@ -42,6 +60,7 @@ android {
 dependencies {
     //implementation fileTree(dir: "${rootProject.projectDir}/libs", include: ['*.jar', '*.aar'])
     implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.X.X'
     implementation 'ch.qos.logback:logback-classic:1.2.6'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'androidx.fragment:fragment:1.3.6'
@@ -55,7 +74,6 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.3.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

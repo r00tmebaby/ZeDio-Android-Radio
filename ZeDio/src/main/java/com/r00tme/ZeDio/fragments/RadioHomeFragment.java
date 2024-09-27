@@ -25,12 +25,12 @@ import com.r00tme.ZeDio.adapters.RadioAdapter;
 import com.r00tme.ZeDio.utils.Helper;
 import com.r00tme.ZeDio.utils.Radio;
 import com.r00tme.ZeDio.utils.ParsingHeaderData;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.InvalidObjectException;
+
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -290,7 +290,27 @@ public class RadioHomeFragment extends Fragment implements AdapterView.OnItemSel
                     if (!trackData.artist.trim().isEmpty()) {
                         displayInfo = trackData.artist + " - " + trackData.title;
                     }
+                    byte[] utf8Bytes = displayInfo.getBytes(StandardCharsets.UTF_8);
+                    String utf8String = new String(utf8Bytes, StandardCharsets.UTF_8);
+
+                    String decodedArtist;
+                    try {
+                        decodedArtist = new String(trackData.artist.getBytes("ISO-8859-1"), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String decodedTitle = null;
+                    try {
+                        decodedTitle = new String(trackData.title.getBytes("ISO-8859-1"), "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (!decodedArtist.isEmpty() && !decodedTitle.isEmpty()){
+                        displayInfo = decodedArtist + " - " + decodedTitle;
+                    }
+
                     radioInfoText.setText(displayInfo);
+
                 });
             }).start();
         }

@@ -13,8 +13,10 @@ import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.ext.okhttp.OkHttpDataSourceFactory;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
+import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultAllocator;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.r00tme.ZeDio.fragments.RecordsFragment;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
@@ -232,7 +234,7 @@ public class PlayerAction {
             MediaSource mediaSource = new ProgressiveMediaSource.Factory(dataSourceFactory)
                     .createMediaSource(MediaItem.fromUri(currentRadio.getRadioUrl()));
 
-            exoPlayer.setMediaSource(mediaSource);
+            exoPlayer.setMediaItem(mediaSource.getMediaItem());
             exoPlayer.prepare();
             exoPlayer.setPlayWhenReady(true);
 
