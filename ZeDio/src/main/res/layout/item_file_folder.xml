@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#80000000"
+              android:orientation="horizontal"
+              android:padding="8dp">
+
+    <!-- File icon -->
+    <ImageView
+            android:id="@+id/file_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/music_folder" />
+
+    <!-- File name with gradient background and shadow -->
+    <TextView
+            android:id="@+id/file_name"
+            android:layout_width="0dp"
+            android:layout_marginTop="5sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="File Name"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            android:paddingStart="10sp"
+            android:shadowColor="#80000000"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="5"
+            tools:ignore="RtlSymmetry"/>
+    <!-- Edit button -->
+    <ImageView
+            android:id="@+id/edit_button"
+            android:layout_width="25dp"
+            android:layout_marginTop="8sp"
+            android:layout_marginEnd="5sp"
+            android:layout_height="25dp"
+            android:src="@drawable/edit" />
+
+    <!-- Delete button -->
+    <ImageView
+            android:id="@+id/delete_button"
+            android:layout_width="25dp"
+            android:layout_marginTop="8sp"
+            android:layout_height="25dp"
+            android:src="@drawable/delete" />
+
+</LinearLayout>

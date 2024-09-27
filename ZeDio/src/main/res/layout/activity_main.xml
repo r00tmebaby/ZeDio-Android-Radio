@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:background="#3F51B5"
+              android:orientation="vertical">
+
+    <!-- Top Menu (Persistent across all screens) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/top_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:padding="2dp"
+            android:layout_margin="5dp"
+            android:background="#3F51B5">
+
+        <!-- Left aligned buttons -->
+        <ImageButton
+                android:id="@+id/radio_home"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/app_background"
+                android:src="@drawable/radio_1"
+                android:contentDescription="@string/menu"
+                android:hapticFeedbackEnabled="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" tools:ignore="MissingConstraints"/>
+        <ImageButton
+                android:id="@+id/records"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="60dp"
+                android:background="@color/app_background"
+                android:src="@drawable/explorer_1"
+                android:contentDescription="@string/menu"
+                android:hapticFeedbackEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        <ImageButton
+                android:id="@+id/settings"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/app_background"
+                android:layout_marginStart="120dp"
+                android:src="@drawable/settings_1"
+                android:contentDescription="@string/menu"
+                android:hapticFeedbackEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        <ImageButton
+                android:id="@+id/g_assistant"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/app_background"
+                android:layout_marginStart="180dp"
+                android:src="@drawable/beat_find"
+                android:contentDescription="@string/recognize_song_beatfind"
+                android:hapticFeedbackEnabled="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        <!-- Exit button aligned to the right -->
+        <ImageButton
+                android:id="@+id/exit_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/test1" android:src="@drawable/close"
+                android:background="@color/app_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Fragment Container (Below the Top Menu) -->
+    <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+</LinearLayout>

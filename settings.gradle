@@ -1,2 +1,2 @@
-include ':app'
+include ':ZeDio'
 rootProject.name = "Radio Java"

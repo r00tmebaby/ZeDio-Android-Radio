@@ -1,0 +1,95 @@
+plugins {
+    id 'com.android.application'
+}
+configurations.configureEach {
+    resolutionStrategy { force 'androidx.core:core:1.6.0' }
+}
+android {
+    compileSdkVersion 31
+
+    defaultConfig {
+        applicationId "com.r00tme.radiojava"
+        minSdkVersion 23
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
+            def versionName = project.version ?: "1.0" // Fallback if version is not set
+            def apkName = "ZeDio-${versionName}.apk"
+
+            // Set the output file name (relative path, so no absolute path errors)
+            output.outputFileName = apkName
+
+            // Copy APK to the desired directory after the build
+            tasks.configureEach { task ->
+                if (task.name == "assemble${variant.name.capitalize()}") {
+                    task.doLast {
+                        def destDir = new File("${rootProject.projectDir}/apk/")
+                        if (!destDir.exists()) {
+                            destDir.mkdirs()
+                        }
+                        copy {
+                            from(output.outputFile)
+                            into(destDir)
+                            rename { apkName }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    //implementation fileTree(dir: "${rootProject.projectDir}/libs", include: ['*.jar', '*.aar'])
+    implementation 'org.slf4j:slf4j-api:1.7.32'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.X.X'
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'androidx.fragment:fragment:1.3.6'
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.0' // ExoPlayer
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1' // OkHttp library
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation 'com.google.android.exoplayer:extension-okhttp:2.18.0'
+    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.annotation:annotation:1.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //recyclerview
+    implementation "com.github.bumptech.glide:okhttp3-integration:4.11.0"
+    //noinspection GradleCompatible
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.4.0'
+
+    //circle image
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+}
+
+

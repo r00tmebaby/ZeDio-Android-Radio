@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">ZeDio</string>
+    <string name="test">Test</string>
+    <string name="this_is_a_test_of_scrolling_marquee_text">This is a test of scrolling marquee text</string>
+    <string name="close">Close</string>
+    <string name="todo">TODO</string>
+    <string name="menu">menu</string>
+    <string name="test1">TODO</string>
+    <string name="scrolling_marquee_text">Scrolling marquee text</string>
+    <string name="song_name">Song Name</string>
+    <string name="recognize_song_beatfind">Recognize Song (BeatFind)</string>
+    <string name="equalizer">Equalizer</string>
+    <string name="_60_hz">60 Hz</string>
+    <string name="_120_hz">120 Hz</string>
+    <string name="_250_hz">250 Hz</string>
+    <string name="_500_hz">500 Hz</string>
+    <string name="_1_khz">1 kHz</string>
+    <string name="_2_khz">2 kHz</string>
+    <string name="_4_khz">4 kHz</string>
+    <string name="_8_khz">8 kHz</string>
+    <string name="_16_khz">16 kHz</string>
+    <string name="bass_boost">Bass Boost</string>
+    <string name="virtualizer">Virtualizer</string>
+    <string name="playing">Playing</string>
+    <string name="recording">Recording</string>
+    <string name="this_is_a_custom_toast">This is a custom Toast</string>
+    <string name="custom_toast"/>
+    <string name="file_name">File Name</string>
+    <string name="folder_name">Folder Name</string>
+    <string name="_460_hz"/>
+
+    <string-array name="filter_bys">
+        <item>Name</item>
+        <item>Genre</item>
+        <item>Country</item>
+    </string-array>
+</resources>
