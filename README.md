@@ -38,7 +38,7 @@ ZeDio is a next-generation radio app for Android users that allows you to enjoy 
         <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/main.jpg" alt="Main Screen"/></td>
         <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/recording.jpg" alt="Recording Screen"/></td>
         <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/record-playing.jpg" alt="Record Playing"/></td>
-        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/recordings-browser.jpg" alt="Recordings Browser"/></td>
+        <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/redordings-browser.jpg" alt="Recordings Browser"/></td>
         <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/settings-buffering.jpg" alt="Settings Buffering"/></td>
         <td><img src="https://github.com/r00tmebaby/ZeDio-Android-Radio/blob/master/media/settings-equalizer.jpg" alt="Equalizer Settings"/></td>
     </tr>
