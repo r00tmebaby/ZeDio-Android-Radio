@@ -1,5 +1,6 @@
 # ZeDio Android Radio 🎧
 [![CI](https://github.com/r00tmebaby/ZeDio-Android-Radio/actions/workflows/maven.yml/badge.svg)](https://github.com/r00tmebaby/ZeDio-Android-Radio/actions/workflows/maven.yml)
+
 <p><i>Forget about the problem with YouTube that stops playing in the background, forget about all annoying adverts, forget about paid services... all we want is to listen and possibly record our favourite radios.</i></p>
 
 ZeDio is a next-generation radio app for Android users that allows you to enjoy uninterrupted radio playback, record your favorite tunes, and even recognize songs playing in real time. With a sleek interface and robust features, ZeDio redefines your radio experience.
